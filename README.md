@@ -86,8 +86,8 @@ Submissions from users are stored using `ContactSubmission.js` and confirmation 
 
 ## 👥 Authors
 
-- M. Rayyan Ayub
 - Huzaifa Najam
+- M. Rayyan Ayub
 - Mubashir Saleem
 
 
