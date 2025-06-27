@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest - Login</title>
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="CSS_Files/login.css">
+</head>
+
+<body>
+    <header>
+        <h1>
+            <a href="home.html"> <img src="Images/logo4.png" alt="TripNest Logo">
+                TRIPNEST
+            </a>
+        </h1>
+    </header>
+
+    <div id="notificationPopup" class="notification-popup">
+        <div class="notification-content">
+            <i class="fas fa-times-circle"></i> <span>Wrong Credentials!</span>
+        </div>
+        <div class="notification-progress-bar"></div>
+    </div>
+
+    <div class="container">
+        <div class="form-card">
+            <h2>Login to TripNest</h2>
+            <form id="loginForm" action="#" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <small class="error-message" id="emailError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <small class="error-message" id="passwordError"></small>
+                    <small class="forgot-password"><a href="#">Forgot Password?</a></small>
+                </div>
+
+                <div class="form-group remember-me-group">
+                    <input type="checkbox" id="rememberMe" name="remember_me">
+                    <label for="rememberMe" class="checkbox-label">Remember Me</label>
+                </div>
+
+                <button type="submit" id="loginButton">
+                    <span class="button-text">Login</span>
+                    <i class="fas fa-spinner fa-spin loading-spinner"></i>
+                </button>
+                <div class="general-error-message" id="generalError"></div>
+            </form>
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 TRIPNEST. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const generalError = document.getElementById('generalError');
+            const loginButton = document.getElementById('loginButton');
+            const buttonText = loginButton.querySelector('.button-text');
+            const loadingSpinner = loginButton.querySelector('.loading-spinner');
+            const rememberMeCheckbox = document.getElementById('rememberMe');
+
+            // Notification Popup Elements
+            const notificationPopup = document.getElementById('notificationPopup');
+            const notificationContent = notificationPopup.querySelector('.notification-content');
+            const progressBar = notificationPopup.querySelector('.notification-progress-bar');
+            const notificationIcon = notificationPopup.querySelector('.notification-content i');
+            const notificationText = notificationPopup.querySelector('.notification-content span');
+
+            function showError(element, message) {
+                element.textContent = message;
+                element.style.visibility = 'visible';
+                element.style.opacity = 1;
+            }
+
+            function hideError(element) {
+                element.textContent = '';
+                element.style.visibility = 'hidden';
+                element.style.opacity = 0;
+            }
+
+            // Function to show the custom notification popup
+            function showNotification(message, isSuccess = true, callback = null) {
+                notificationText.textContent = message;
+                if (isSuccess) {
+                    notificationIcon.className = 'fas fa-check-circle';
+                    notificationPopup.style.backgroundColor = '#d4edda';
+                    notificationContent.style.color = '#155724';
+                    notificationIcon.style.color = '#28a745';
+                    progressBar.style.backgroundColor = '#28a745';
+                } else {
+                    notificationIcon.className = 'fas fa-times-circle'; // Icon for error
+                    notificationPopup.style.backgroundColor = '#f8d7da'; // Light red for error
+                    notificationContent.style.color = '#721c24'; // Dark red for text
+                    notificationIcon.style.color = '#dc3545'; // Red for icon
+                    progressBar.style.backgroundColor = '#dc3545'; // Red for progress bar
+                }
+
+                notificationPopup.classList.add('show');
+                progressBar.style.width = '0%'; // Reset progress bar
+
+                setTimeout(() => {
+                    progressBar.style.transition = `width 2s linear`; // 2 seconds duration
+                    progressBar.style.width = '100%';
+                }, 50);
+
+                setTimeout(() => {
+                    notificationPopup.classList.remove('show');
+                    progressBar.style.transition = 'none'; // Reset transition
+                    progressBar.style.width = '0%'; // Reset width
+                    if (callback) {
+                        callback(); // Execute callback after popup disappears
+                    }
+                }, 2000); // Popup disappears after 2 seconds
+            }
+
+
+            function setLoadingState(isLoading) {
+                if (isLoading) {
+                    loginButton.disabled = true;
+                    buttonText.style.display = 'none';
+                    loadingSpinner.style.display = 'inline-block';
+                } else {
+                    loginButton.disabled = false;
+                    buttonText.style.display = 'inline';
+                    loadingSpinner.style.display = 'none';
+                }
+            }
+
+            setLoadingState(false);
+
+
+            loginForm.addEventListener('submit', async function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                let isValid = true;
+
+                // Reset all errors
+                hideError(emailError);
+                hideError(passwordError);
+                hideError(generalError);
+                emailInput.classList.remove('input-error');
+                passwordInput.classList.remove('input-error');
+
+
+                // Validate Email
+                if (emailInput.value.trim() === '') {
+                    showError(emailError, 'Email is required.');
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
+                    showError(emailError, 'Please enter a valid email address.');
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                }
+
+                // Validate Password
+                if (passwordInput.value.trim() === '') {
+                    showError(passwordError, 'Password is required.');
+                    passwordInput.classList.add('input-error');
+                    isValid = false;
+                } else if (passwordInput.value.trim().length < 6) { // Example: minimum 6 characters
+                    showError(passwordError, 'Password must be at least 6 characters long.');
+                    passwordInput.classList.add('input-error');
+                    isValid = false;
+                }
+
+                // Proceed with API call if validation passes
+                if (isValid) {
+                    setLoadingState(true); // Set button to loading state
+                    hideError(generalError); // Hide any previous general errors
+
+                    try {
+                        const response = await fetch('http://localhost:5000/api/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: emailInput.value.trim(),
+                                password: passwordInput.value.trim(),
+                            })
+                        });
+
+                        const data = await response.json(); // Parse the JSON response
+
+                        if (response.ok) {
+                            console.log('Login successful:', data.message);
+                            localStorage.setItem('isLoggedIn', 'true');
+                            
+                            showNotification('Login successful!', true, () => {
+                                console.log('Redirecting to home.html now...');
+                                window.location.href = 'home.html';
+                            });
+                        } else {
+                            // Handle API errors (e.g., 401 Unauthorized, 400 Bad Request)
+                            console.error('Login failed:', data.message);
+                            showError(generalError, data.message || 'Login failed. Please try again.');
+                            showNotification(data.message || 'Login failed!', false); // Show error notification
+                        }
+                    } catch (error) {
+                        console.error('Network or server error during login:', error);
+                        showError(generalError, 'Network error. Please try again.');
+                        showNotification('Network error during login!', false);
+                    } finally {
+                        setLoadingState(false); // Always reset button state
+                    }
+                }
+            });
+
+            // Optional: Real-time validation as user types (can be added for better UX)
+            emailInput.addEventListener('input', () => {
+                if (emailInput.value.trim() !== '') {
+                    hideError(emailError);
+                    emailInput.classList.remove('input-error');
+                }
+            });
+
+            passwordInput.addEventListener('input', () => {
+                if (passwordInput.value.trim() !== '') {
+                    hideError(passwordError);
+                    passwordInput.classList.remove('input-error');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

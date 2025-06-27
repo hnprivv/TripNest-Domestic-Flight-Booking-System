@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest - Sign Up</title>
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="CSS_Files/signup.css">
+</head>
+
+<body>
+    <header>
+        <h1>
+            <a href="home.html"> <img src="Images/logo4.png" alt="TripNest Logo">
+                TRIPNEST
+            </a>
+        </h1>
+    </header>
+
+    <div id="notificationPopup" class="notification-popup">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span>Account created successfully!</span>
+        </div>
+        <div class="notification-progress-bar"></div>
+    </div>
+
+    <div class="container">
+        <div class="form-card">
+            <h2>Create Your TripNest Account</h2>
+            <form id="signupForm" action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    <small class="error-message" id="nameError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <small class="error-message" id="emailError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="e.g., +923001234567">
+                    <small class="error-message" id="phoneError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <small class="error-message" id="passwordError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password"
+                        placeholder="Confirm your password" required>
+                    <small class="error-message" id="confirmPasswordError"></small>
+                </div>
+
+                <div class="form-group terms-checkbox-group">
+                    <input type="checkbox" id="agreeTerms" name="agree_terms">
+                    <label for="agreeTerms" class="checkbox-label">I agree to the <a href="#" id="openTermsModal">Terms
+                            and Policies</a></label>
+                    <small class="error-message" id="termsError"></small>
+                </div>
+
+                <button type="submit" id="signupButton" disabled>
+                    <span class="button-text">Sign Up</span>
+                    <i class="fas fa-spinner fa-spin loading-spinner"></i>
+                </button>
+                <div class="general-error-message" id="generalError"></div>
+            </form>
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 TRIPNEST. All rights reserved.
+    </footer>
+
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>TripNest Terms and Policies</h3>
+            <div class="terms-content">
+                <h4>1. Introduction</h4>
+                <p>Welcome to TripNest! These Terms and Policies govern your use of our flight booking services. By
+                    accessing or using our platform, you agree to comply with and be bound by these terms.</p>
+
+                <h4>2. Account Registration</h4>
+                <p>You must be at least 18 years old to create an account. You are responsible for maintaining the
+                    confidentiality of your account information and for all activities that occur under your account.
+                </p>
+
+                <h4>3. Booking and Payments</h4>
+                <p>All flight bookings are subject to availability and the terms and conditions of the respective
+                    airlines. Prices are subject to change without prior notice. Payments must be made using accepted
+                    payment methods, and TripNest is not responsible for any issues arising from third-party payment
+                    gateways.</p>
+
+                <h4>4. Cancellations and Refunds</h4>
+                <p>Cancellation and refund policies vary by airline and ticket type. Please review the specific terms of
+                    your booking before confirming. TripNest may charge an administrative fee for cancellations or
+                    modifications.</p>
+
+                <h4>5. Privacy Policy</h4>
+                <p>Your privacy is important to us. Our Privacy Policy (available separately) describes how we collect,
+                    use, and protect your personal data. By using TripNest, you consent to our data practices as
+                    outlined in the Privacy Policy.</p>
+
+                <h4>6. User Conduct</h4>
+                <p>You agree to use TripNest only for lawful purposes. Prohibited activities include, but are not
+                    limited to, fraudulent bookings, unauthorized access to systems, and harassment.</p>
+
+                <h4>7. Disclaimer of Warranties</h4>
+                <p>TripNest provides its services "as is" and does not make any express or implied warranties regarding
+                    the accuracy, reliability, or completeness of the information provided on the platform.</p>
+
+                <h4>8. Limitation of Liability</h4>
+                <p>TripNest shall not be liable for any direct, indirect, incidental, consequential, or punitive damages
+                    arising out of your use of or inability to use our services.</p>
+
+                <h4>9. Governing Law</h4>
+                <p>These Terms and Policies shall be governed by and construed in accordance with the laws of [Your
+                    Country/State], without regard to its conflict of law provisions.</p>
+
+                <h4>10. Changes to Terms</h4>
+                <p>TripNest reserves the right to modify these Terms and Policies at any time. We will notify you of any
+                    significant changes by posting the updated terms on our website.</p>
+            </div>
+            <button id="closeTermsModal" class="book-flight-button">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const signupForm = document.getElementById('signupForm');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm_password');
+            const agreeTermsCheckbox = document.getElementById('agreeTerms');
+            const signupButton = document.getElementById('signupButton');
+            const buttonText = signupButton.querySelector('.button-text');
+            const loadingSpinner = signupButton.querySelector('.loading-spinner');
+
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const phoneError = document.getElementById('phoneError');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const termsError = document.getElementById('termsError');
+            const generalError = document.getElementById('generalError');
+
+            // Terms Modal Elements
+            const termsModal = document.getElementById('termsModal');
+            const openTermsModalLink = document.getElementById('openTermsModal');
+            const closeTermsModalButton = termsModal.querySelector('.close-button');
+            const confirmCloseTermsModalButton = document.getElementById('closeTermsModal');
+
+            // NEW: Notification Popup Elements
+            const notificationPopup = document.getElementById('notificationPopup');
+            const notificationContent = notificationPopup.querySelector('.notification-content');
+            const progressBar = notificationPopup.querySelector('.notification-progress-bar');
+            const notificationIcon = notificationPopup.querySelector('.notification-content i');
+            const notificationText = notificationPopup.querySelector('.notification-content span');
+
+            const BACKEND_API_URL = 'http://localhost:5000/api';
+
+            function showError(element, message) {
+                element.textContent = message;
+                element.style.visibility = 'visible';
+                element.style.opacity = 1;
+            }
+
+            function hideError(element) {
+                element.textContent = '';
+                element.style.visibility = 'hidden';
+                element.style.opacity = 0;
+            }
+
+            function clearAllErrors() {
+                hideError(nameError);
+                hideError(emailError);
+                hideError(phoneError);
+                hideError(passwordError);
+                hideError(confirmPasswordError);
+                hideError(termsError);
+                hideError(generalError);
+
+                nameInput.classList.remove('input-error');
+                emailInput.classList.remove('input-error');
+                phoneInput.classList.remove('input-error');
+                passwordInput.classList.remove('input-error');
+                confirmPasswordInput.classList.remove('input-error');
+            }
+
+            function setLoadingState(isLoading) {
+                if (isLoading) {
+                    signupButton.disabled = true;
+                    buttonText.style.display = 'none';
+                    loadingSpinner.style.display = 'inline-block';
+                } else {
+                    signupButton.disabled = false;
+                    buttonText.style.display = 'inline';
+                    loadingSpinner.style.display = 'none';
+                }
+            }
+
+            // Function to show the custom notification popup
+            function showNotification(message, isSuccess = true, callback = null) {
+                notificationText.textContent = message;
+                if (isSuccess) {
+                    notificationIcon.className = 'fas fa-check-circle';
+                    notificationPopup.style.backgroundColor = '#d4edda';
+                    notificationContent.style.color = '#155724';
+                    notificationIcon.style.color = '#28a745';
+                    progressBar.style.backgroundColor = '#28a745';
+                } else {
+                    notificationIcon.className = 'fas fa-times-circle';
+                    notificationPopup.style.backgroundColor = '#f8d7da';
+                    notificationContent.style.color = '#721c24';
+                    notificationIcon.style.color = '#dc3545';
+                    progressBar.style.backgroundColor = '#dc3545';
+                }
+
+                notificationPopup.classList.add('show');
+                progressBar.style.width = '0%'; // Reset progress bar
+
+                setTimeout(() => {
+                    progressBar.style.transition = `width 2s linear`; // 2 seconds duration
+                    progressBar.style.width = '100%';
+                }, 50);
+
+                setTimeout(() => {
+                    notificationPopup.classList.remove('show');
+                    progressBar.style.transition = 'none'; // Reset transition
+                    progressBar.style.width = '0%'; // Reset width
+                    if (callback) {
+                        callback(); // Execute callback after popup disappears
+                    }
+                }, 2000); // Popup disappears after 2 seconds
+            }
+
+            // Initially set button and spinner state
+            setLoadingState(false);
+            // Check terms checkbox initially to set button state
+            toggleSignupButtonState();
+
+
+            // --- Validation Logic (Client-Side)---
+            function validateForm() {
+                let isValid = true;
+                clearAllErrors(); // Clear errors on each submission attempt
+
+                // Validate Full Name
+                if (nameInput.value.trim() === '') {
+                    showError(nameError, 'Full Name is required.');
+                    nameInput.classList.add('input-error');
+                    isValid = false;
+                }
+
+                // Validate Email
+                if (emailInput.value.trim() === '') {
+                    showError(emailError, 'Email is required.');
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
+                    showError(emailError, 'Please enter a valid email address.');
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                }
+
+                // Validate Phone Number (Optional but good to validate if present)
+                if (phoneInput.value.trim() !== '' && !/^\+?[0-9\s-()]{7,20}$/.test(phoneInput.value.trim())) {
+                    showError(phoneError, 'Please enter a valid phone number.');
+                    phoneInput.classList.add('input-error');
+                    isValid = false;
+                }
+
+                // Validate Password
+                if (passwordInput.value.trim() === '') {
+                    showError(passwordError, 'Password is required.');
+                    passwordInput.classList.add('input-error');
+                    isValid = false;
+                } else if (passwordInput.value.trim().length < 8) { // Example: minimum 8 characters
+                    showError(passwordError, 'Password must be at least 8 characters long.');
+                    passwordInput.classList.add('input-error');
+                    isValid = false;
+                }
+
+                // Validate Confirm Password
+                if (confirmPasswordInput.value.trim() === '') {
+                    showError(confirmPasswordError, 'Please confirm your password.');
+                    confirmPasswordInput.classList.add('input-error');
+                    isValid = false;
+                } else if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
+                    showError(confirmPasswordError, 'Passwords do not match.');
+                    confirmPasswordInput.classList.add('input-error');
+                    isValid = false;
+                }
+
+                // Validate Terms and Policies Checkbox
+                if (!agreeTermsCheckbox.checked) {
+                    showError(termsError, 'You must agree to the Terms and Policies.');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+
+            // --- Event Listeners for Validation and Form Submission ---
+            signupForm.addEventListener('submit', async function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                if (validateForm()) {
+                    setLoadingState(true); // Set button to loading state
+                    hideError(generalError); // Hide general error message
+
+                    const userData = {
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        phone: phoneInput.value.trim(), // Send as empty string if not provided
+                        password: passwordInput.value.trim(),
+                        confirm_password: confirmPasswordInput.value.trim()
+                    };
+
+                    try {
+                        const response = await fetch(`${BACKEND_API_URL}/signup`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(userData)
+                        });
+
+                        const data = await response.json(); // Parse the JSON response
+
+                        if (response.ok) { // Check if the response status is 2xx (success)
+                            showNotification('Account created successfully!', true, () => {
+                                window.location.href = 'login.html'; // Redirect on success
+                            });
+                        } else {
+                            // Handle errors from the backend
+                            const errorMessage = data.message || 'Registration failed. Please try again.';
+                            showError(generalError, errorMessage);
+                            showNotification(errorMessage, false); // Show error notification
+                            setLoadingState(false);
+                        }
+                    } catch (error) {
+                        console.error('Network or server error:', error);
+                        showError(generalError, 'Network error. Please check your connection and try again.');
+                        showNotification('Network error. Please try again.', false); // Show error notification
+                        setLoadingState(false);
+                    }
+                } else {
+                    setLoadingState(false);
+                }
+            });
+
+            // Real-time validation for individual fields
+            nameInput.addEventListener('input', () => { if (nameInput.value.trim() !== '') hideError(nameError); nameInput.classList.remove('input-error'); });
+            emailInput.addEventListener('input', () => { if (emailInput.value.trim() !== '') hideError(emailError); emailInput.classList.remove('input-error'); });
+            phoneInput.addEventListener('input', () => { if (phoneInput.value.trim() !== '') hideError(phoneError); phoneInput.classList.remove('input-error'); });
+            passwordInput.addEventListener('input', () => {
+                if (passwordInput.value.trim() !== '') hideError(passwordError);
+                passwordInput.classList.remove('input-error');
+                if (confirmPasswordInput.value.trim() !== '' && passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
+                    showError(confirmPasswordError, 'Passwords do not match.');
+                    confirmPasswordInput.classList.add('input-error');
+                } else {
+                    hideError(confirmPasswordError);
+                    confirmPasswordInput.classList.remove('input-error');
+                }
+            });
+            confirmPasswordInput.addEventListener('input', () => {
+                if (confirmPasswordInput.value.trim() !== '') hideError(confirmPasswordError);
+                confirmPasswordInput.classList.remove('input-error');
+                if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
+                    showError(confirmPasswordError, 'Passwords do not match.');
+                    confirmPasswordInput.classList.add('input-error');
+                } else {
+                    hideError(confirmPasswordError);
+                    confirmPasswordInput.classList.remove('input-error');
+                }
+            });
+
+
+            // --- Terms and Policies Checkbox and Button State ---
+            function toggleSignupButtonState() {
+                signupButton.disabled = !agreeTermsCheckbox.checked;
+                if (agreeTermsCheckbox.checked) {
+                    hideError(termsError); // Hide error if terms are checked
+                }
+            }
+            agreeTermsCheckbox.addEventListener('change', toggleSignupButtonState);
+
+
+            // --- Modal Logic for Terms and Policies ---
+            openTermsModalLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                termsModal.style.display = 'flex'; // Use flex to center
+                document.body.style.overflow = 'hidden'; // Prevent scrolling body
+            });
+
+            closeTermsModalButton.addEventListener('click', function () {
+                termsModal.style.display = 'none';
+                document.body.style.overflow = ''; // Restore body scrolling
+            });
+
+            confirmCloseTermsModalButton.addEventListener('click', function () {
+                termsModal.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+
+            // Close modal if clicking outside content
+            window.addEventListener('click', function (event) {
+                if (event.target === termsModal) {
+                    termsModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

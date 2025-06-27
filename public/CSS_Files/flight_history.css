@@ -1,0 +1,267 @@
+:root {
+    --primary-blue: #291f13; /* Dark blue, inspired by proposal header */
+    --secondary-blue: #6a5742; /* Slightly lighter dark blue */
+    --accent-color: #332618; /* Bright blue for accents */
+    --text-color: #333;
+    --light-gray: #f4f4f4;
+    --border-color: #ddd;
+    --padding-base: 20px;
+
+    /* Sidebar Specific Variables - These are largely from home.css and could be removed if home.css is fully included */
+    /* Keeping them here for clarity if you only want to import a subset of home.css */
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 60px;
+    --sidebar-bg: #423629;
+    --sidebar-link-hover: #6a5742;
+    --sidebar-text-color: white;
+    --active-border-color: #e67e22;
+    --active-icon-color: #e67e22;
+    --sidebar-divider-color: rgba(255, 255, 255, 0.15);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: var(--padding-base) 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center; /* Center the logo/text initially */
+    align-items: center;
+    padding-left: var(--padding-base);
+    padding-right: var(--padding-base);
+    position: relative;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* Allow h1 to take space */
+    justify-content: center;
+}
+
+header h1 img {
+    height: 1.5em;
+    margin-right: 10px;
+}
+
+/* Main content wrapper to center the card */
+.main-content-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top of wrapper */
+    padding: var(--padding-base);
+    background-color: var(--light-gray); /* Background for the page content area */
+}
+
+.content-card {
+    background-color: white;
+    padding: calc(var(--padding-base) * 1.5);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 800px; /* Adjust max-width as needed for content */
+    text-align: center; /* Center the heading */
+    margin-top: var(--padding-base); /* Space from navbar */
+    margin-bottom: var(--padding-base); /* Space before footer */
+}
+
+.content-card h2 {
+    color: var(--secondary-blue);
+    margin-bottom: var(--padding-base);
+    font-size: 2em;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Flight History Specific Styles */
+.flight-history-list {
+    text-align: left; /* Align flight details to left */
+    margin-top: 20px;
+}
+
+.flight-item {
+    background-color: #f9f9f9;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease-in-out;
+}
+
+.flight-item:hover {
+    transform: translateY(-3px);
+}
+
+.flight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+}
+
+.flight-route {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.flight-route i {
+    margin: 0 8px;
+    color: #666;
+}
+
+.flight-date {
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--secondary-blue);
+}
+
+.flight-details p {
+    margin: 5px 0;
+    font-size: 0.95em;
+    color: #555;
+}
+
+.flight-details strong {
+    color: var(--primary-blue);
+}
+
+.status {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 1em;
+}
+
+.status i {
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+.status.completed {
+    color: #28a745; /* Green for completed */
+}
+
+.status.cancelled {
+    color: #dc3545; /* Red for cancelled */
+}
+
+.no-flights {
+    font-style: italic;
+    color: #777;
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    background-color: #fdfdfd;
+}
+
+
+footer {
+    text-align: center;
+    padding: var(--padding-base);
+    color: #777;
+    font-size: 0.9em;
+    margin-top: auto;
+    background-color: var(--light-gray); /* Match content wrapper background */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Header for mobile */
+    header {
+        flex-direction: row; /* Keep header items in a row for mobile */
+        justify-content: space-between;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    header h1 {
+        justify-content: center;
+        margin-bottom: 0; /* Remove margin-bottom */
+        font-size: 2em;
+        flex-grow: 1; /* Allow h1 to take space */
+    }
+
+    header h1 img {
+        height: 40px;
+        margin-right: 5px;
+    }
+
+    /* Styles for sidebar mobile behavior (will be loaded from home.css) */
+    /* .hamburger-menu-toggle { display: block; position: static; transform: none; } */
+    /* .sidebar { ... } */
+    /* .sidebar.open { ... } */
+    /* .sidebar-toggle-btn { display: none; } */
+    /* .sidebar-header { ... } */
+    /* .sidebar-menu { ... } */
+    /* .sidebar-menu li a { ... } */
+    /* .sidebar-menu li a i { ... } */
+    /* .sidebar-menu li a span { ... } */
+    /* .sidebar-divider { ... } */
+    /* .sidebar.collapsed .sidebar-divider { ... } */
+
+    /* Removed old mobile navigation styles */
+    /* .menu-toggle { ... } */
+    /* .nav-links { ... } */
+    /* .nav-links.active { ... } */
+    /* .nav-links li { ... } */
+    /* .nav-links li a { ... } */
+
+
+    .content-card {
+        padding: var(--padding-base);
+        margin-top: var(--padding-base) * 0.5;
+    }
+
+    .flight-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .flight-date {
+        align-self: flex-end; /* Push date to end on smaller screens */
+    }
+
+    .flight-route {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    header h1 img {
+        height: 35px;
+        margin-right: 5px;
+    }
+}

@@ -1,0 +1,959 @@
+:root {
+    --primary-blue: #291f13;
+    --secondary-blue: #6a5742;
+    --accent-color: #332618;
+    --text-color: #333;
+    --light-gray: #f4f4f4;
+    --border-color: #ddd;
+    --padding-base: 20px;
+
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 60px;
+    --sidebar-bg: #423629;
+    --sidebar-link-hover: #6a5742;
+    --sidebar-text-color: white;
+    --active-border-color: #e67e22;
+    --active-icon-color: #e67e22;
+    --sidebar-divider-color: rgba(255, 255, 255, 0.15);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: var(--padding-base) 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: var(--padding-base);
+    padding-right: var(--padding-base);
+    position: relative;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+header h1 img {
+    height: 1.5em;
+    margin-right: 10px;
+}
+
+/* --- Notification Popup Styles --- */
+.notification-popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    min-width: 280px;
+    box-sizing: border-box;
+    border: 1px solid #c3e6cb;
+}
+
+.notification-popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.notification-content i {
+    color: #28a745;
+    font-size: 1.4em;
+}
+
+.notification-progress-bar {
+    width: 0%;
+    height: 5px;
+    background-color: #28a745;
+    border-radius: 2px;
+    margin-top: 5px;
+    align-self: flex-start;
+}
+
+/* Main Content Area adjustments (ensure consistent with home.css's .main-content-area) */
+.main-content-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding-base);
+    background-color: var(--light-gray);
+}
+
+/* Base content card style for settings page itself */
+.content-card {
+    background-color: white;
+    padding: calc(var(--padding-base) * 1.5);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    align-self: center;
+    box-sizing: border-box;
+}
+
+.content-card h2 {
+    color: var(--secondary-blue);
+    margin-bottom: var(--padding-base);
+    font-size: 2em;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Settings Specific Styles */
+.settings-sections {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.setting-item {
+    background-color: #f9f9f9;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.setting-item h3 {
+    color: var(--primary-blue);
+    font-size: 1.3em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.setting-item h3 i {
+    color: var(--accent-color);
+    font-size: 1.2em;
+}
+
+.setting-button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end;
+    font-weight: 600;
+}
+
+.setting-button:hover {
+    background-color: var(--primary-blue);
+}
+
+/* --- Modal Styles --- */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content-wrapper {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #777;
+    cursor: pointer;
+    z-index: 1002;
+    transition: color 0.2s ease;
+}
+
+.modal-close-button:hover {
+    color: #dc3545;
+}
+
+/* Styles for the content-card INSIDE the modal */
+.content-card.edit-profile-card-modal {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    text-align: center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+/* Modal Navigation Arrows (Desktop) */
+.modal-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1003;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    padding: 0;
+}
+
+.modal-nav-arrow:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-nav-arrow.left {
+    left: 20px;
+}
+
+.modal-nav-arrow.right {
+    right: 20px;
+}
+
+.modal-nav-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* NEW: Mobile Navigation Buttons */
+.modal-mobile-nav-buttons {
+    display: none;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-mobile-nav-buttons .button {
+    flex-grow: 1;
+    max-width: 150px;
+}
+
+
+/* NO MORE .profile-tabs and .tab-button styles needed */
+
+
+/* Styles for the content sections (formerly "tabs") within the modal */
+.tab-content {
+    display: none;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content h3 {
+    color: var(--primary-blue);
+    font-size: 1.6em;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--primary-blue);
+    font-size: 0.95em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    color: var(--text-color);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(51, 38, 24, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.hint-text {
+    font-size: 0.85em;
+    color: #777;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Profile Picture Upload */
+.profile-picture-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-picture-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 2px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-picture-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.upload-button:hover {
+    background-color: var(--primary-blue);
+}
+
+.upload-button.tiny-button {
+    padding: 5px 10px;
+    font-size: 0.75em;
+}
+
+
+/* Verification Status */
+.verification-status {
+    font-size: 0.9em;
+    margin-left: 10px;
+    color: #777;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.verification-status .verified {
+    color: #28a745;
+}
+
+.resend-verification-button {
+    background-color: transparent;
+    border: 1px solid var(--secondary-blue);
+    color: var(--secondary-blue);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-left: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.resend-verification-button:hover {
+    background-color: var(--secondary-blue);
+    color: white;
+}
+
+/* Saved Travelers / Payment Methods List */
+.saved-travelers-list,
+.payment-methods-list {
+    margin-top: 20px;
+    /* Removed border and padding here, moved to .payment-item */
+    background-color: #fcfcfc;
+}
+
+.traveler-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.traveler-item:last-child {
+    border-bottom: none;
+}
+
+.traveler-item p {
+    margin: 0;
+    flex-grow: 1;
+    color: #555;
+}
+
+.traveler-item p strong {
+    color: var(--primary-blue);
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+/* New styles for .payment-item and its children to create column layout for buttons */
+.payment-item {
+    display: flex; /* */
+    justify-content: space-between; /* */
+    align-items: center; /* */
+    background-color: white; /* */
+    padding: 15px 20px; /* */
+    border-radius: 8px; /* */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* */
+    margin-bottom: 15px; /* */
+    font-size: 1.1em; /* */
+    color: var(--text-color); /* */
+    flex-wrap: wrap; /* */
+    border: 1px solid var(--border-color); /* */
+}
+
+.payment-item i { /* */
+    color: var(--primary-blue); /* */
+    margin-right: 8px; /* */
+    font-size: 1.2em; /* */
+}
+
+/* Style the new wrapper for the action buttons */
+.payment-actions { /* */
+    display: flex; /* */
+    flex-direction: column; /* */
+    gap: 8px; /* */
+    margin-left: auto; /* */
+    align-items: flex-end; /* */
+}
+
+/* Ensure buttons take full width of their column if needed */
+.payment-actions button { /* */
+    width: 100%; /* */
+    min-width: 80px; /* */
+    padding: 8px 12px; /* */
+    border-radius: 5px; /* */
+    font-size: 0.9em; /* */
+    cursor: pointer; /* */
+    transition: background-color 0.3s ease; /* */
+    display: flex; /* */
+    align-items: center; /* */
+    justify-content: center; /* */
+    gap: 5px; /* */
+}
+
+.edit-payment-button { /* */
+    background-color: var(--accent-color); /* */
+    color: white; /* */
+    border: 1px solid var(--accent-color); /* */
+}
+
+.edit-payment-button:hover { /* */
+    background-color: #423629; /* */
+    border-color: #423629; /* */
+}
+
+.remove-payment-button { /* */
+    background-color: #e74c3c; /* */
+    color: white; /* */
+    border: 1px solid #e74c3c; /* */
+}
+
+.remove-payment-button:hover { /* */
+    background-color: #c0392b; /* */
+    border-color: #c0392b; /* */
+}
+
+/* Adjust button icons */
+.edit-payment-button i, /* */
+.remove-payment-button i { /* */
+    color: inherit; /* */
+    margin-right: 5px; /* */
+    font-size: 1em; /* */
+}
+
+
+.traveler-item button {
+    background-color: transparent;
+    border: none;
+    color: var(--secondary-blue);
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-left: 10px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.traveler-item button:hover {
+    background-color: var(--light-gray);
+    color: var(--primary-blue);
+}
+
+.add-traveler-button,
+.add-payment-method-button,
+.link-account-button,
+.password-change-button,
+.data-export-button,
+.two-fa-toggle-button {
+    background-color: var(--secondary-blue);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add-traveler-button:hover,
+.add-payment-method-button:hover,
+.link-account-button:hover,
+.password-change-button:hover,
+.data-export-button:hover,
+.two-fa-toggle-button:hover {
+    background-color: var(--primary-blue);
+}
+
+/* Security Tab Specifics */
+.two-fa-status {
+    font-weight: 600;
+    margin-top: 15px;
+    font-size: 1em;
+}
+
+.status-indicator.enabled {
+    color: #28a745;
+}
+
+.status-indicator.disabled {
+    color: #dc3545;
+}
+
+.connected-accounts-list {
+    margin-top: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fcfcfc;
+}
+
+.connected-account-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    color: #555;
+}
+
+.connected-account-item:last-child {
+    border-bottom: none;
+}
+
+.connected-account-item i {
+    font-size: 1.3em;
+    margin-right: 10px;
+    width: 25px;
+    text-align: center;
+    color: var(--primary-blue);
+}
+.connected-account-item .fa-google { color: #DB4437; }
+.connected-account-item .fa-facebook { color: #4267B2; }
+
+
+.disconnect-button {
+    background-color: transparent;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-left: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.disconnect-button:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+/* Other Settings Tab Specifics */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+/* New styles for Data & Privacy buttons */
+.data-privacy-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.data-privacy-buttons .data-export-button,
+.data-privacy-buttons .account-delete-button {
+    background-color: var(--secondary-blue);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    width: auto;
+    margin: 0;
+}
+
+.data-privacy-buttons .data-export-button:hover {
+    background-color: var(--primary-blue);
+}
+
+.data-privacy-buttons .account-delete-button.danger-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.data-privacy-buttons .account-delete-button.danger-button:hover {
+    background-color: #c82333;
+}
+
+
+/* Form Actions (Save/Cancel Buttons) */
+.form-actions {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button.primary-button {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.button.primary-button:hover {
+    background-color: var(--primary-blue);
+    transform: translateY(-2px);
+}
+
+.button.secondary-button {
+    background-color: #e0e0e0;
+    color: var(--text-color);
+}
+
+.button.secondary-button:hover {
+    background-color: #ccc;
+    transform: translateY(-2px);
+}
+
+
+footer {
+    text-align: center;
+    padding: var(--padding-base);
+    color: #777;
+    font-size: 0.9em;
+    margin-top: auto;
+    background-color: var(--light-gray);
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .notification-popup {
+        width: calc(100% - 40px);
+        left: 20px;
+        transform: translateX(0);
+    }
+
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    header h1 {
+        justify-content: center;
+        margin-bottom: 0;
+        font-size: 2em;
+        flex-grow: 1;
+    }
+
+    header h1 img {
+        height: 40px;
+        margin-right: 5px;
+    }
+
+    .hamburger-menu-toggle {
+        display: block;
+        position: static;
+        transform: none;
+    }
+
+    .content-card {
+        padding: var(--padding-base);
+        margin-top: var(--padding-base) * 0.5;
+    }
+
+    .tab-content h3 {
+        font-size: 1.4em;
+        margin-top: 20px;
+    }
+
+    /* Adjust data privacy buttons for mobile */
+    .data-privacy-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .data-privacy-buttons .data-export-button,
+    .data-privacy-buttons .account-delete-button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .button {
+        width: 100%;
+    }
+
+    .traveler-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .traveler-item button {
+        align-self: flex-end;
+    }
+
+    /* Media query for smaller screens, if you want buttons to revert to row layout */
+    .payment-item { /* */
+        flex-direction: column; /* */
+        align-items: flex-start; /* */
+        padding: 15px; /* */
+    }
+    .payment-item > *:not(.payment-actions) { /* */
+        margin-bottom: 10px; /* */
+    }
+    .payment-actions { /* */
+        width: 100%; /* */
+        margin-top: 10px; /* */
+        flex-direction: row; /* */
+        justify-content: space-around; /* */
+        align-items: center; /* */
+    }
+    .payment-actions button { /* */
+        flex: 1; /* */
+        max-width: 48%; /* */
+    }
+
+    .connected-account-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .connected-account-item button {
+        align-self: flex-end;
+    }
+
+    /* Hide desktop arrows on smaller screens */
+    .modal-nav-arrow {
+        display: none;
+    }
+
+    /* Show mobile navigation buttons on smaller screens */
+    .modal-mobile-nav-buttons {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .modal-nav-arrow.left {
+        left: calc(50% - (700px / 2) - 70px);
+    }
+
+    .modal-nav-arrow.right {
+        right: calc(50% - (700px / 2) - 70px);
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    header h1 img {
+        height: 35px;
+        margin-right: 5px;
+    }
+
+    .content-card {
+        padding: calc(var(--padding-base) * 0.8);
+    }
+
+    .modal-mobile-nav-buttons .button {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+}

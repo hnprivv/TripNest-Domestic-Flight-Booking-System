@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest - Add New Airline</title>
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="CSS_Files/add_flight.css">
+    <link rel="stylesheet" href="Css_Files/admin_dashboard.css">
+</head>
+
+<body>
+    <header>
+        <button class="hamburger-menu-toggle" id="hamburgerMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <h1>
+            <a href="home.html">
+                <img src="Images/logo4.png" alt="TripNest Logo">
+                TRIPNEST
+            </a>
+        </h1>
+    </header>
+
+    <div class="dashboard-wrapper">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="dashboard-content" id="addAirlineMainContent">
+            <div class="add-flight-container">
+                <h2>Add New Airline</h2>
+                <form id="addAirlineForm">
+                    <div class="form-group">
+                        <label for="airlineName">Airline Name</label>
+                        <input type="text" id="airlineName" name="airlineName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="iataCode">IATA Code</label>
+                        <input type="text" id="iataCode" name="iataCode" maxlength="2" placeholder="e.g., PK" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" id="country" name="country" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="admin_dashboard.html" class="btn-back">Back to Dashboard</a>
+                        <button type="submit" class="btn-submit">Add Airline</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 TripNest. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Placeholder for hamburger menu and sidebar overlay (not functional on this page without a sidebar)
+            const hamburgerMenuToggle = document.getElementById('hamburgerMenuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            if (hamburgerMenuToggle) {
+                hamburgerMenuToggle.addEventListener('click', () => {
+                    // No sidebar to toggle on this page, but keeping the listener for consistency
+                    console.log('Hamburger menu toggle clicked on add_airline page (no sidebar present).');
+                });
+            }
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', () => {
+                    console.log('Sidebar overlay clicked on add_airline page (no sidebar present).');
+                });
+            }
+
+            const addAirlineForm = document.getElementById('addAirlineForm');
+
+            if (addAirlineForm) {
+                addAirlineForm.addEventListener('submit', async (event) => {
+                    event.preventDefault(); // Prevent default form submission
+
+                    const airlineData = {
+                        airlineName: document.getElementById('airlineName').value.trim(),
+                        iataCode: document.getElementById('iataCode').value.trim().toUpperCase(),
+                        country: document.getElementById('country').value.trim()
+                    };
+
+                    try {
+                        const response = await fetch('http://localhost:5000/api/airlines', { // Your backend API endpoint
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                // Add authorization header if your API requires it (e.g., 'Authorization': 'Bearer YOUR_TOKEN')
+                            },
+                            body: JSON.stringify(airlineData)
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            alert(result.message || 'Airline added successfully!');
+                            window.location.href = 'admin_dashboard.html'; // Redirect back to dashboard on success
+                        } else {
+                            alert(`Error adding airline: ${result.message || 'Something went wrong.'}`);
+                            console.error('Airline add error:', result);
+                        }
+                    } catch (error) {
+                        console.error('Network error or failed to add airline:', error);
+                        alert('Could not connect to the server or an unexpected error occurred.');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

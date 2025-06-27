@@ -1,0 +1,118 @@
+/* CSS_Files/add_flight.css */
+
+/* Basic layout for the page to align content properly with header/footer */
+body.add-flight-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Container for the Add Flight form */
+.add-flight-container {
+    max-width: 700px; /* Adjust max-width as needed */
+    margin: 30px auto; /* Center the form container */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex-grow: 1; /* Allows container to grow and push footer down */
+    /* Ensure it aligns with dashboard-content if possible */
+    width: calc(100% - var(--padding-base) * 2); /* Example: Adjust width based on overall padding */
+}
+
+.add-flight-container h2 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="datetime-local"] {
+    width: calc(100% - 22px); /* Account for padding and border */
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Include padding and border in width */
+    color: var(--text-color);
+    background-color: #fcfcfc;
+}
+
+/* Form action buttons layout */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 15px; /* Space between buttons */
+}
+
+.btn-submit {
+    background-color: var(--status-active); /* Green, from dashboard theme */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    transition: background-color 0.3s ease;
+    flex: 1; /* Allow button to take available space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+.btn-submit:hover {
+    background-color: #218838; /* Darker green */
+}
+
+.btn-back {
+    background-color: var(--status-inactive); /* Gray, from dashboard theme */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* For the <a> tag styling */
+    display: flex; /* For proper padding/icon alignment */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 1; /* Allow button to take available space */
+}
+
+.btn-back:hover {
+    background-color: #5a6268; /* Darker gray */
+}
+
+/* Responsive adjustments for form actions */
+@media (max-width: 768px) {
+    .add-flight-container {
+        margin: 20px;
+        padding: 20px;
+    }
+    .form-actions {
+        flex-direction: column;
+    }
+    .btn-submit, .btn-back {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest - Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="CSS_Files/admin_dashboard.css">
+</head>
+
+<body>
+    <header>
+        <button class="hamburger-menu-toggle" id="hamburgerMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <h1>
+            <a href="home.html">
+                <img src="Images/logo4.png" alt="TripNest Logo">
+                TRIPNEST
+            </a>
+        </h1>
+    </header>
+
+    <div class="dashboard-wrapper">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar collapsed" id="adminSidebar">
+            <button class="sidebar-toggle-btn" id="sidebarToggleBtn">
+                <i class="fas fa-chevron-right"></i> </button>
+            <div class="sidebar-header">
+                <h2>Admin Panel</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" data-section="manage-airlines" class="active"><i class="fas fa-building"></i>
+                        <span>Manage Airlines</span></a></li>
+                <li><a href="#" data-section="manage-flights"><i class="fas fa-plane"></i> <span>Manage
+                            Flights</span></a></li>
+                <li><a href="#" data-section="view-bookings"><i class="fas fa-book"></i> <span>View Bookings</span></a>
+                </li>
+                <li><a href="#" data-section="view-users"><i class="fas fa-users"></i> <span>View Users</span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <span class="logged-in-user"><i class="fas fa-user-shield"></i> <span>Admin User</span></span>
+                <a href="#" id="adminLogoutLink" class="admin-logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Log
+                        Out</span></a>
+            </div>
+        </aside>
+
+        <main class="dashboard-content" id="dashboardMainContent">
+            <section id="manage-airlines" class="content-section active">
+                <h2>Manage Airlines</h2>
+                <div class="actions-bar">
+                    <a href="add_airline.html" class="add-new-btn"><i class="fas fa-plus"></i> Add New Airline</a>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Airline Name</th>
+                                <th>IATA Code</th>
+                                <th>Country</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data is fetched dynamically from the database -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="manage-flights" class="content-section">
+                <h2>Manage Flights</h2>
+                <div class="actions-bar">
+                    <a href="add_flight.html" class="add-new-btn"><i class="fas fa-plus"></i> Add New Flight</a>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Flight No.</th>
+                                <th>Airline</th>
+                                <th>Route</th>
+                                <th>Departure</th>
+                                <th>Arrival</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data is fetched dynamically from the database -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="view-bookings" class="content-section">
+                <h2>View and Manage Bookings</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>User Name</th>
+                                <th>Flight No.</th>
+                                <th>Route</th>
+                                <th>Booking Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BKNG001</td>
+                                <td>Ahmed Khan</td>
+                                <td>PK303</td>
+                                <td>KHI - LHE</td>
+                                <td>2025-06-01</td>
+                                <td class="status-confirmed">Confirmed</td>
+                                <td>
+                                    <button class="action-btn view-btn"><i class="fas fa-eye"></i> View Details</button>
+                                    <button class="action-btn cancel-btn"><i class="fas fa-ban"></i> Cancel
+                                        Booking</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BKNG002</td>
+                                <td>Sara Ali</td>
+                                <td>ER543</td>
+                                <td>ISB - KHI</td>
+                                <td>2025-06-05</td>
+                                <td class="status-pending">Pending</td>
+                                <td>
+                                    <button class="action-btn view-btn"><i class="fas fa-eye"></i> View Details</button>
+                                    <button class="action-btn cancel-btn"><i class="fas fa-ban"></i> Cancel
+                                        Booking</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BKNG003</td>
+                                <td>Usman Dar</td>
+                                <td>PA210</td>
+                                <td>LHE - ISB</td>
+                                <td>2025-06-08</td>
+                                <td class="status-cancelled">Cancelled</td>
+                                <td>
+                                    <button class="action-btn view-btn"><i class="fas fa-eye"></i> View Details</button>
+                                    <button class="action-btn cancel-btn" disabled><i class="fas fa-ban"></i>
+                                        Cancelled</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="view-users" class="content-section">
+                <h2>View Users</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Account Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data is fetched dynamically from the database -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2025 TRIPNEST. All rights reserved.
+    </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const adminSidebar = document.getElementById('adminSidebar');
+            const sidebarToggleBtn = document.getElementById('sidebarToggleBtn'); // Desktop toggle
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+            const contentSections = document.querySelectorAll('.content-section');
+            const sidebarHoverRegion = 50;
+
+        // Mobile Hamburger Menu Elements
+            const hamburgerMenuToggle = document.getElementById('hamburgerMenuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            // Function to open sidebar for mobile
+            function openSidebar() {
+                adminSidebar.classList.add('open');
+                sidebarOverlay.classList.add('visible');
+                document.body.style.overflow = 'hidden'; // Prevent body scroll
+            }
+
+            // Function to close sidebar for mobile
+            function closeSidebar() {
+                adminSidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('visible');
+                document.body.style.overflow = ''; // Restore body scroll
+            }
+
+        // Mobile Hamburger Menu Toggle
+            if (hamburgerMenuToggle) {
+                hamburgerMenuToggle.addEventListener('click', openSidebar);
+            }
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', closeSidebar);
+            }
+
+
+            // Desktop sidebar toggle functionality
+            // This function will only apply if screen width is > 768px (handled by CSS @media)
+            if (sidebarToggleBtn) {
+                sidebarToggleBtn.addEventListener('click', function() {
+                    adminSidebar.classList.toggle('collapsed');
+                    // Toggle icon for desktop
+                    sidebarToggleBtn.querySelector('i').classList.toggle('fa-chevron-left');
+                    sidebarToggleBtn.querySelector('i').classList.toggle('fa-chevron-right');
+                });
+            }
+
+        // Sidebar auto-expand/collapse on mouse proximity (Left region hover)
+            // Only enable on desktop
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', function(e) {
+                    if (!adminSidebar.classList.contains('open') && e.clientX < sidebarHoverRegion && adminSidebar.classList.contains('collapsed')) {
+                        adminSidebar.classList.remove('collapsed');
+                        sidebarToggleBtn.querySelector('i').classList.remove('fa-chevron-left');
+                        sidebarToggleBtn.querySelector('i').classList.add('fa-chevron-right');
+                    } else if (!adminSidebar.classList.contains('open') && e.clientX > adminSidebar.offsetWidth + 20 && !adminSidebar.classList.contains('collapsed') && e.target.closest('#adminSidebar') === null) {
+                        adminSidebar.classList.add('collapsed');
+                        sidebarToggleBtn.querySelector('i').classList.add('fa-chevron-left');
+                        sidebarToggleBtn.querySelector('i').classList.remove('fa-chevron-right');
+                    }
+                });
+            }
+
+
+        // Sidebar menu link functionality (showing/hiding sections)
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                
+                    const targetSectionId = this.dataset.section;
+
+                    sidebarLinks.forEach(item => item.classList.remove('active'));
+                    contentSections.forEach(section => section.classList.remove('active'));
+
+                    this.classList.add('active');
+                    document.getElementById(targetSectionId).classList.add('active');
+
+                    // Close sidebar after selection on mobile
+                    if (window.innerWidth <= 768) {
+                        closeSidebar();
+                    }
+
+                    if(targetSectionId === 'manage-airlines'){
+                        fetchAndDisplayAirlines();
+                    } else if(targetSectionId === 'manage-flights'){
+                        fetchAndDisplayFlights();
+                    } else if(targetSectionId === 'view-users'){
+                        fetchAndDisplayUsers();
+                    }
+                });
+            });
+
+        // Function to fetch and display flights
+        async function fetchAndDisplayFlights() {
+            const manageFlightsSection = document.getElementById('manage-flights');
+            const flightsTableBody = manageFlightsSection ? manageFlightsSection.querySelector('tbody') : null;
+
+            if (!flightsTableBody) {
+                console.error('Flights table body not found.');
+                return;
+            }
+
+            // Clear existing hardcoded rows
+            flightsTableBody.innerHTML = '';
+
+            try {
+                const response = await fetch('http://localhost:5000/api/flights'); // Backend API endpoint
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const flights = await response.json(); // Array of flight objects
+
+                if (flights.length === 0) {
+                    flightsTableBody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No flights available.</td></tr>';
+                    return;
+                }
+
+                flights.forEach(flight => {
+                    const row = flightsTableBody.insertRow();
+
+                    const departureTime = new Date(flight.departureTime);
+                    const arrivalTime = new Date(flight.arrivalTime);
+
+                    const flightDate = departureTime.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                    const depTime = departureTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                    const arrTime = arrivalTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+                    row.insertCell().textContent = flight.flightNumber;
+                    row.insertCell().textContent = flight.airline;
+                    row.insertCell().textContent = `${flight.departureAirport} - ${flight.arrivalAirport}`;
+                    row.insertCell().textContent = depTime;
+                    row.insertCell().textContent = arrTime;
+                    row.insertCell().textContent = flightDate;
+
+                    const statusCell = row.insertCell();
+                    statusCell.textContent = 'Active'; // Assuming new flights are active by default or add a status field in model
+                    statusCell.classList.add('status-active'); // Apply styling
+
+                    const actionsCell = row.insertCell();
+                    actionsCell.innerHTML = `
+                        <button class="action-btn edit-btn" data-id="${flight._id}"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="action-btn delete-btn" data-id="${flight._id}"><i class="fas fa-trash"></i> Delete</button>
+                    `;
+
+                    // Attach event listeners to newly created buttons (if needed, these are placeholders)
+                    actionsCell.querySelector('.edit-btn').addEventListener('click', () => alert(`Editing flight ${flight.flightNumber}. (ID: ${flight._id})`));
+                    actionsCell.querySelector('.delete-btn').addEventListener('click', () => {
+                        if (confirm(`Are you sure you want to delete flight ${flight.flightNumber}?`)) {
+                            alert(`Deleting flight ${flight.flightNumber}. (ID: ${flight._id})`);
+                            // Implement actual delete API call here
+                        }
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error fetching flights:', error);
+                flightsTableBody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: red;">Failed to load flights. Please try again later.</td></tr>';
+            }
+        }
+
+        // Function to fetch and display airlines
+        async function fetchAndDisplayAirlines() {
+            const manageAirlinesSection = document.getElementById('manage-airlines');
+            const airlinesTableBody = manageAirlinesSection ? manageAirlinesSection.querySelector('tbody') : null;
+
+            if (!airlinesTableBody) {
+                console.error('Airlines table body not found.');
+                return;
+            }
+
+            // Clear existing hardcoded rows
+            airlinesTableBody.innerHTML = '';
+
+            try {
+                const response = await fetch('http://localhost:5000/api/airlines'); // Backend API endpoint
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const airlines = await response.json(); // Array of airline objects
+
+                if (airlines.length === 0) {
+                    airlinesTableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No airlines available.</td></tr>';
+                    return;
+                }
+
+                airlines.forEach(airline => {
+                    const row = airlinesTableBody.insertRow();
+                    row.insertCell().textContent = airline._id; // Use MongoDB _id or generate a custom ID
+                    row.insertCell().textContent = airline.airlineName;
+                    row.insertCell().textContent = airline.iataCode;
+                    row.insertCell().textContent = airline.country;
+
+                    const actionsCell = row.insertCell();
+                    actionsCell.innerHTML = `
+                        <button class="action-btn edit-btn" data-id="${airline._id}"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="action-btn delete-btn" data-id="${airline._id}"><i class="fas fa-trash"></i> Delete</button>
+                    `;
+
+                    // Attach event listeners to newly created buttons (placeholders for now)
+                    actionsCell.querySelector('.edit-btn').addEventListener('click', () => alert(`Editing airline ${airline.airlineName}. (ID: ${airline._id})`));
+                    actionsCell.querySelector('.delete-btn').addEventListener('click', () => {
+                        if (confirm(`Are you sure you want to delete airline ${airline.airlineName}?`)) {
+                            alert(`Deleting airline ${airline.airlineName}. (ID: ${airline._id})`);
+                            // Implement actual delete API call here
+                        }
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error fetching airlines:', error);
+                airlinesTableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: red;">Failed to load airlines. Please try again later.</td></tr>';
+            }
+        }
+
+        // Function to fetch and display users
+        async function fetchAndDisplayUsers() {
+            const viewUsersSection = document.getElementById('view-users');
+            const usersTableBody = viewUsersSection ? viewUsersSection.querySelector('tbody') : null;
+
+            if (!usersTableBody) {
+                console.error('Users table body not found for dynamic update.');
+                return;
+            }
+
+            usersTableBody.innerHTML = ''; // Clear existing hardcoded rows
+
+            try {
+                const response = await fetch('http://localhost:5000/api/users'); // Backend API endpoint
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const users = await response.json(); // Array of user objects
+
+                if (users.length === 0) {
+                    usersTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No users available.</td></tr>';
+                    return;
+                }
+
+                users.forEach(user => {
+                    const row = usersTableBody.insertRow();
+                    row.insertCell().textContent = user._id; // MongoDB _id
+                    row.insertCell().textContent = user.name;
+                    row.insertCell().textContent = user.email;
+                    row.insertCell().textContent = user.phone || 'N/A'; // Display N/A if phone is null/undefined
+
+                    const statusCell = row.insertCell();
+                    // Assuming user status can be derived or is stored in a field, e.g., user.isActive
+                    // For now, let's assume all fetched users are 'Active' or you have a status field in your User model
+                    statusCell.textContent = user.status || 'Active'; // Use actual status if available, else default to 'Active'
+                    statusCell.classList.add(user.status === 'Inactive' ? 'status-inactive' : 'status-active'); // Apply styling based on status
+
+                    const actionsCell = row.insertCell();
+                    actionsCell.innerHTML = `
+                        <button class="action-btn view-btn" data-id="${user._id}"><i class="fas fa-eye"></i> View</button>
+                        <button class="action-btn deactivate-btn" data-id="${user._id}"><i class="fas fa-user-slash"></i> Deactivate</button>
+                    `;
+
+                    // Attach event listeners to newly created action buttons (placeholders)
+                    actionsCell.querySelector('.view-btn').addEventListener('click', () => alert(`Viewing user ${user.name}. (ID: ${user._id})`));
+                    actionsCell.querySelector('.deactivate-btn').addEventListener('click', () => {
+                        if (confirm(`Are you sure you want to deactivate user ${user.name}?`)) {
+                            alert(`Deactivating user ${user.name}. (ID: ${user._id})`);
+                            // Implement actual deactivate API call here
+                        }
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                usersTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: red;">Failed to load users. Please try again later.</td></tr>';
+            }
+        }
+
+        // Action button alerts (existing code, keep as is or modify as needed)
+        document.querySelectorAll('.edit-btn, .view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('Backend integration required for this action.');
+            });
+        });
+
+        document.querySelectorAll('.delete-btn, .cancel-btn, .deactivate-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // These will be overridden by specific fetchAndDisplay functions' event listeners
+                // but kept here for any other non-dynamic rows
+                if (confirm('Are you sure? (Backend integration required)')) {
+                    alert('Action confirmed. (Backend integration required)');
+                }
+            });
+        });
+
+
+        const adminLogoutLink = document.getElementById('adminLogoutLink');
+        if (adminLogoutLink) {
+            adminLogoutLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                alert('Admin logged out!');
+                window.location.href = 'admin_login.html'; // Redirect to login page
+            });
+        }
+
+        // Close sidebar if window is resized above mobile breakpoint while open
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) {
+                closeSidebar(); // Ensure sidebar is closed when transitioning to desktop view
+            }
+        });
+
+        // Initial load: Check which section is active and load its data
+        // This is the correct place for initialActiveSection declaration and usage
+        const initialActiveSection = document.querySelector('.content-section.active');
+        if (initialActiveSection) {
+            if (initialActiveSection.id === 'manage-flights') {
+                fetchAndDisplayFlights();
+            } else if (initialActiveSection.id === 'manage-airlines') {
+                fetchAndDisplayAirlines();
+            } else if (initialActiveSection.id === 'view-users') {
+                fetchAndDisplayUsers();
+            }
+            // Add more conditions here for other sections as they get dynamic data
+        }
+    });
+</script>
+</body>
+
+</html>

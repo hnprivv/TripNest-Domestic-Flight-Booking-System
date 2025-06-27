@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest - Flight Search</title>
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="CSS_Files/search_results.css">
+</head>
+
+<body>
+    <header>
+        <button class="hamburger-menu-toggle" id="hamburgerMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <h1>
+            <a href="home.html">
+                <img src="Images/logo4.png" alt="TripNest Logo">
+                TRIPNEST
+            </a>
+        </h1>
+    </header>
+
+    <div class="dashboard-wrapper">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar collapsed" id="searchResultSidebar">
+            <button class="sidebar-toggle-btn" id="sidebarToggleBtn">
+                <i class="fas fa-chevron-right"></i> </button>
+            <ul class="sidebar-menu">
+                <li><a href="home.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="search_result.html"><i class="fas fa-calendar-alt"></i> <span>Flight Schedules</span></a></li>
+                <li><a href="flight_history.html"><i class="fas fa-history"></i> <span>Flight History</span></a></li>
+                <li><a href="manage_bookings.html"><i class="fas fa-clipboard-list"></i> <span>Manage
+                            Bookings</span></a></li>
+
+                <li class="sidebar-divider"></li>
+                <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
+                <li><a href="signup.html"><i class="fas fa-user-plus"></i> <span>Sign Up</span></a></li>
+
+                <li class="sidebar-divider"></li>
+                <li><a href="about_us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> <span>Contact Us</span></a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                <li id="logoutMenuItem" style="display: none;"> <a href="login.html" id="logoutLink"><i
+                            class="fas fa-sign-out-alt"></i> <span>Log out</span></a>
+                </li>
+            </ul>
+        </aside>
+
+        <div class="dashboard-content" id="dashboardMainContent">
+            <div class="search-bar-section">
+                <div class="search-bar-container">
+                    <form class="flight-search-form">
+                        <div class="form-group">
+                            <label for="search-from">From</label>
+                            <input type="text" id="search-from" placeholder="Karachi (KHI)" value="Karachi (KHI)">
+                        </div>
+                        <div class="form-group">
+                            <label for="search-to">To</label>
+                            <input type="text" id="search-to" placeholder="Lahore (LHE)" value="Lahore (LHE)">
+                        </div>
+                        <div class="form-group">
+                            <label for="search-depart">Depart</label>
+                            <input type="date" id="search-depart" value="2025-06-15">
+                        </div>
+                        <div class="form-group">
+                            <label for="search-return">Return</label>
+                            <input type="date" id="search-return" value="2025-06-26">
+                        </div>
+
+                        <div class="form-group passengers-group">
+                            <label>Passengers</label>
+                            <div class="passengers-display-box" id="passengersDisplay">
+                                <span id="passengersCount">1 Adult</span> <i class="fas fa-user-friends"></i>
+                            </div>
+                            <div class="passengers-dropdown" id="passengersDropdown">
+                                <div class="dropdown-header">
+                                    <h3>Travelers</h3>
+                                    <i class="fas fa-times close-dropdown"></i>
+                                </div>
+                                <div class="traveler-type">
+                                    <div class="type-info">
+                                        <i class="fas fa-user"></i>
+                                        <span>
+                                            <strong>Adults</strong>
+                                            <small>12 years and above</small>
+                                        </span>
+                                    </div>
+                                    <div class="counter-control">
+                                        <button type="button" class="minus-btn" data-type="adults">-</button>
+                                        <span class="count" id="adultsCount">1</span>
+                                        <button type="button" class="plus-btn" data-type="adults">+</button>
+                                    </div>
+                                </div>
+                                <div class="traveler-type">
+                                    <div class="type-info">
+                                        <i class="fas fa-child"></i>
+                                        <span>
+                                            <strong>Children</strong>
+                                            <small>2 to 11 years</small>
+                                        </span>
+                                    </div>
+                                    <div class="counter-control">
+                                        <button type="button" class="minus-btn" data-type="children">-</button>
+                                        <span class="count" id="childrenCount">0</span>
+                                        <button type="button" class="plus-btn" data-type="children">+</button>
+                                    </div>
+                                </div>
+                                <div class="traveler-type">
+                                    <div class="type-info">
+                                        <i class="fas fa-baby"></i>
+                                        <span>
+                                            <strong>Infants</strong>
+                                            <small>7 days to 23 months</small>
+                                        </span>
+                                    </div>
+                                    <div class="counter-control">
+                                        <button type="button" class="minus-btn" data-type="infants">-</button>
+                                        <span class="count" id="infantsCount">0</span>
+                                        <button type="button" class="plus-btn" data-type="infants">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="search-class">Class</label>
+                            <select id="search-class">
+                                <option value="economy">Economy</option>
+                                <option value="business">Business</option>
+                                <option value="first">First Class</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="search-flights-btn">
+                            <i class="fas fa-search"></i> Search Flights
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="container content-section">
+                <aside class="sidebar">
+                    <h2>Filter Results</h2>
+                    <div class="filter-group">
+                        <h3>Airlines</h3>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="airline-united" name="airline" value="united">
+                            <label for="airline-united">Pakistan International Airlines</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="airline-british" name="airline" value="british">
+                            <label for="airline-british">Fly Jinnah</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="airline-delta" name="airline" value="delta">
+                            <label for="airline-delta">Serene Air</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="airline-emirates" name="airline" value="emirates">
+                            <label for="airline-emirates">Air Blue</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h3>Price Range</h3>
+                        <label for="price-range">Max Price:</label>
+                        <input type="range" id="price-range" name="price-range" min="100000" max="500000"
+                            value="250000">
+                        <div class="price-range-display">PKR <span id="current-max-price">250,000</span></div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h3>Departure Times</h3>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep-morning" name="dep-time" value="morning">
+                            <label for="dep-morning">00:00 - 05:59 (Morning)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep-day" name="dep-time" value="day">
+                            <label for="dep-day">06:00 - 11:59 (Day)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep-afternoon" name="dep-time" value="afternoon">
+                            <label for="dep-afternoon">12:00 - 17:59 (Afternoon)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep-night" name="dep-time" value="night">
+                            <label for="dep-night">18:00 - 23:59 (Night)</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h3>Flight Duration</h3>
+                        <label for="duration-max">Max Duration:</label>
+                        <input type="range" id="duration-max" name="duration-max" min="1" max="20" value="2">
+                        <div class="price-range-display"><span id="current-max-duration">2</span> hours</div>
+                    </div>
+
+                </aside>
+
+                <main class="main-content">
+                    <div class="sort-options">
+                        <div class="action-buttons"> <button class="set-price-alert-btn" id="setPriceAlertBtn">
+                                <i class="fas fa-bell"></i> Set Price Alert
+                            </button>
+                            <button class="security-guide-btn" id="showSecurityGuideBtn">
+                                <i class="fas fa-shield-alt"></i> Security Guide
+                            </button>
+                        </div>
+                        <div class="sort-right-group">
+                            <label for="sort-by">Sort by:</label>
+                            <select id="sort-by" name="sort-by">
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="duration-asc">Duration: Shortest</option>
+                                <option value="duration-desc">Duration: Longest</option>
+                                <option value="departure-asc">Departure: Earliest</option>
+                                <option value="departure-desc">Departure: Latest</option>
+                                <option value="arrival-asc">Arrival: Earliest</option>
+                                <option value="arrival-desc">Arrival: Latest</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flight-list">
+                        <div class="flight-card">
+                            <div class="flight-header">
+                                <div class="airline-info">
+                                    <span class="airline-name">Pakistan International Airlines | PK-543</span>
+                                </div>
+                                <span class="flight-type">Direct Flight</span>
+                            </div>
+                            <div class="flight-details">
+                                <div class="flight-segment">
+                                    <div class="time">08:00 AM</div>
+                                    <div class="airport-code">KHI</div>
+                                    <div class="city-name">Karachi</div>
+                                </div>
+                                <div class="flight-duration">
+                                    <span>1h 45m</span>
+                                    <hr>
+                                    <span>Direct</span>
+                                    <div class="amenities-indicators">
+                                        <span class="amenity-item" title="Meals Included"><i
+                                                class="fas fa-utensils"></i></span>
+                                        <span class="amenity-item" title="No Wi-Fi"><i
+                                                class="fas fa-wifi no-amenity"></i></span>
+                                        <span class="amenity-item" title="No In-seat Power"><i
+                                                class="fas fa-plug no-amenity"></i></span>
+                                    </div>
+                                </div>
+                                <div class="flight-segment">
+                                    <div class="time">09:45 AM</div>
+                                    <div class="airport-code">LHE</div>
+                                    <div class="city-name">Lahore</div>
+                                </div>
+                                <div class="action-section">
+                                    <a href="flight_booking.html" class="book-button"
+                                        style="text-decoration: none; display: block;">Book Now</a>
+                                    <div class="flight-price">
+                                        <span class="currency">PKR</span>19,658
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flight-extra-details">
+                                <div class="details-section">
+                                    <h4>Baggage Allowance</h4>
+                                    <p><strong>Checked Baggage:</strong> 20 KG</p>
+                                    <p><strong>Cabin Baggage:</strong> 7 KG</p>
+                                </div>
+                                <div class="details-section">
+                                    <h4>Terminal Information</h4>
+                                    <p><strong>KHI Departure:</strong> Terminal 1</p>
+                                    <p><strong>LHE Arrival:</strong> Terminal 1</p>
+                                </div>
+                                <div class="details-section fare-breakdown-section">
+                                    <h4>Fare Breakdown</h4>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Base Fare:</span>
+                                        <span class="fare-value">PKR 15,000</span>
+                                    </div>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Taxes & Fees:</span>
+                                        <span class="fare-value">PKR 4,000</span>
+                                    </div>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Fuel Surcharge:</span>
+                                        <span class="fare-value">PKR 500</span>
+                                    </div>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Airport Charges:</span>
+                                        <span class="fare-value">PKR 158</span>
+                                    </div>
+                                    <hr>
+                                    <div class="fare-item total-fare">
+                                        <span class="fare-label">Total Fare:</span>
+                                        <span class="fare-value">PKR 19,658</span>
+                                    </div>
+                                    <p class="fare-note">Note: Baggage fees and seat selection may apply based on your
+                                        selection.</p>
+                                </div>
+                            </div>
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+
+                        <div class="flight-card">
+                            <div class="flight-header">
+                                <div class="airline-info">
+                                    <span class="airline-name">Pakistan International Airlines | PK-303</span>
+                                </div>
+                                <span class="flight-type">Direct Flight</span>
+                            </div>
+                            <div class="flight-details">
+                                <div class="flight-segment">
+                                    <div class="time">05:00 PM</div>
+                                    <div class="airport-code">ISB</div>
+                                    <div class="city-name">Islamabad</div>
+                                </div>
+                                <div class="flight-duration">
+                                    <span>2h 0m</span>
+                                    <hr>
+                                    <span>Direct</span>
+                                    <div class="amenities-indicators">
+                                        <span class="amenity-item" title="Wi-Fi Available"><i
+                                                class="fas fa-wifi"></i></span>
+                                        <span class="amenity-item" title="Meals Included"><i
+                                                class="fas fa-utensils"></i></span>
+                                        <span class="amenity-item" title="In-flight Entertainment"><i
+                                                class="fas fa-tv"></i></span>
+                                        <span class="amenity-item" title="In-seat Power"><i
+                                                class="fas fa-plug"></i></span>
+                                    </div>
+                                </div>
+                                <div class="flight-segment">
+                                    <div class="time">07:00 PM</div>
+                                    <div class="airport-code">KHI</div>
+                                    <div class="city-name">Karachi</div>
+                                </div>
+                                <div class="action-section">
+                                    <a href="flight_booking.html" class="book-button"
+                                        style="text-decoration: none; display: block;">Book Now</a>
+                                    <div class="flight-price">
+                                        <span class="currency">PKR</span>35,644
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flight-extra-details">
+                                <div class="details-section">
+                                    <h4>Baggage Allowance</h4>
+                                    <p><strong>Checked Baggage:</strong> 23 KG</p>
+                                    <p><strong>Cabin Baggage:</strong> 8 KG</p>
+                                </div>
+                                <div class="details-section">
+                                    <h4>Terminal Information</h4>
+                                    <p><strong>ISB Departure:</strong> Terminal 7</p>
+                                    <p><strong>KHI Arrival:</strong> Terminal 5</p>
+                                </div>
+                                <div class="details-section fare-breakdown-section">
+                                    <h4>Fare Breakdown</h4>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Base Fare:</span>
+                                        <span class="fare-value">PKR 28,000</span>
+                                    </div>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Taxes & Fees:</span>
+                                        <span class="fare-value">PKR 4,000</span>
+                                    </div>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Fuel Surcharge:</span>
+                                        <span class="fare-value">PKR 3,394</span>
+                                    </div>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Airport Charges:</span>
+                                        <span class="fare-value">PKR 250</span>
+                                    </div>
+                                    <hr>
+                                    <div class="fare-item total-fare">
+                                        <span class="fare-label">Total Fare:</span>
+                                        <span class="fare-value">PKR 35,644</span>
+                                    </div>
+                                    <p class="fare-note">Note: Baggage fees and seat selection may apply based on your
+                                        selection.</p>
+                                </div>
+                            </div>
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+
+                        <div class="flight-card">
+                            <div class="flight-header">
+                                <div class="airline-info">
+                                    <span class="airline-name">Fly Jinnah | 9P852</span>
+                                </div>
+                                <span class="flight-type">Direct Flight</span>
+                            </div>
+                            <div class="flight-details">
+                                <div class="flight-segment">
+                                    <div class="time">09:10 AM</div>
+                                    <div class="airport-code">UET</div>
+                                    <div class="city-name">Quetta</div>
+                                </div>
+                                <div class="flight-duration">
+                                    <span>1h 30m</span>
+                                    <hr>
+                                    <span>Direct</span>
+                                    <div class="amenities-indicators">
+                                        <span class="amenity-item" title="Wi-Fi Available"><i
+                                                class="fas fa-wifi"></i></span>
+                                        <span class="amenity-item" title="Meals Included"><i
+                                                class="fas fa-utensils"></i></span>
+                                        <span class="amenity-item" title="In-flight Entertainment"><i
+                                                class="fas fa-tv"></i></span>
+                                        <span class="amenity-item" title="No In-seat Power"><i
+                                                class="fas fa-plug no-amenity"></i></span>
+                                    </div>
+                                </div>
+                                <div class="flight-segment">
+                                    <div class="time">10:40 AM</div>
+                                    <div class="airport-code">KHI</div>
+                                    <div class="city-name">Karachi</div>
+                                </div>
+                                <div class="action-section">
+                                    <a href="flight_booking.html" class="book-button"
+                                        style="text-decoration: none; display: block;">Book Now</a>
+                                    <div class="flight-price">
+                                        <span class="currency">PKR</span>34,556
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flight-extra-details">
+                                <div class="details-section">
+                                    <h4>Baggage Allowance</h4>
+                                    <p><strong>Checked Baggage:</strong> 20 KG</p>
+                                    <p><strong>Cabin Baggage:</strong> 7 KG</p>
+                                </div>
+                                <div class="details-section">
+                                    <h4>Terminal Information</h4>
+                                    <p><strong>UET Departure:</strong> Terminal 4</p>
+                                    <p><strong>KHI Arrival:</strong> Terminal 3</p>
+                                </div>
+                                <div class="details-section fare-breakdown-section">
+                                    <h4>Fare Breakdown</h4>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Base Fare:</span>
+                                        <span class="fare-value">PKR 30,000</span>
+                                    </div>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Taxes & Fees:</span>
+                                        <span class="fare-value">PKR 2,500</span>
+                                    </div>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Fuel Surcharge:</span>
+                                        <span class="fare-value">PKR 1,800</span>
+                                    </div>
+                                    <div class="fare-item">
+                                        <span class="fare-label">Airport Charges:</span>
+                                        <span class="fare-value">PKR 226</span>
+                                    </div>
+                                    <hr>
+                                    <div class="fare-item total-fare">
+                                        <span class="fare-label">Total Fare:</span>
+                                        <span class="fare-value">PKR 34,556</span>
+                                    </div>
+                                    <p class="fare-note">Note: Baggage fees and seat selection may apply based on your
+                                        selection.</p>
+                                </div>
+                            </div>
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <footer>
+        &copy; 2025 TRIPNEST. All rights reserved.
+    </footer>
+
+    <div id="priceAlertModal" class="app-modal">
+        <div class="app-modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Set Price Alert</h3>
+            <p>Receive email notifications when the price for this search changes.</p>
+            <form id="priceAlertForm">
+                <div class="form-group">
+                    <label for="alert-email">Your Email</label>
+                    <input type="email" id="alert-email" name="alert-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="alert-target-price">Target Price (Optional)</label>
+                    <input type="number" id="alert-target-price" name="alert-target-price" placeholder="e.g., 18000"
+                        min="0">
+                    <small class="form-text">Notify me if the price drops below this amount.</small>
+                </div>
+                <div class="form-group">
+                    <label for="alert-frequency">Frequency</label>
+                    <select id="alert-frequency" name="alert-frequency">
+                        <option value="any-drop">Notify on Any Price Drop</option>
+                        <option value="daily">Daily Updates</option>
+                        <option value="weekly">Weekly Updates</option>
+                    </select>
+                </div>
+                <button type="submit" class="create-alert-btn">Create Alert</button>
+            </form>
+        </div>
+    </div>
+    <div id="securityGuideModal" class="app-modal">
+        <div class="app-modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Domestic Travel Security Guidelines</h3>
+            <p>To ensure a smooth journey, please review the following essential security information for domestic
+                flights in Pakistan:</p>
+            <ul>
+                <li><strong>ID Required:</strong> Always carry your original CNIC/Passport for identification.</li>
+                <li><strong>Liquids Rule:</strong> Liquids in carry-on must be in containers of 100ml (3.4oz) or less,
+                    fitting in a 1-quart size bag.</li>
+                <li><strong>Prohibited Items:</strong> No sharp objects, firearms, explosives, or flammable materials
+                    in carry-on or checked baggage.</li>
+                <li><strong>Electronics:</strong> Laptops and larger electronics may need to be removed from bags for
+                    screening.</li>
+                <li><strong>Check-in Baggage:</strong> Refer to airline's specific baggage allowance for weight and
+                    size limits.</li>
+            </ul>
+            <p class="modal-link-text">For complete and official guidelines, please visit the <a
+                    href="https://pcaa.gov.pk/" target="_blank" rel="noopener noreferrer">Pakistan Civil Aviation
+                    Authority (PCAA)</a> website.</p>
+        </div>
+    </div>
+    <script>
+        const priceRange = document.getElementById('price-range');
+        const currentMaxPrice = document.getElementById('current-max-price');
+
+        priceRange.addEventListener('input', () => {
+            currentMaxPrice.textContent = new Intl.NumberFormat('en-PK').format(priceRange.value);
+        });
+
+        const durationRange = document.getElementById('duration-max');
+        const currentMaxDuration = document.getElementById('current-max-duration');
+
+        durationRange.addEventListener('input', () => {
+            currentMaxDuration.textContent = durationRange.value;
+        });
+
+        // Interactive Flight Details / Layover Information Logic
+        document.querySelectorAll('.view-details-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const flightCard = this.closest('.flight-card');
+                const extraDetails = flightCard.querySelector('.flight-extra-details');
+
+                if (extraDetails.classList.contains('active')) {
+                    extraDetails.classList.remove('active');
+                    this.textContent = 'View Details';
+                } else {
+                    // Close other open details first (optional, but good for single-open accordion)
+                    document.querySelectorAll('.flight-extra-details.active').forEach(openDetails => {
+                        openDetails.classList.remove('active');
+                        openDetails.closest('.flight-card').querySelector('.view-details-btn').textContent = 'View Details';
+                    });
+
+                    extraDetails.classList.add('active');
+                    this.textContent = 'Hide Details';
+                }
+            });
+        });
+
+        // Price Alert Modal Logic
+        const priceAlertModal = document.getElementById('priceAlertModal');
+        const setPriceAlertBtn = document.getElementById('setPriceAlertBtn');
+        const closePriceAlertButtons = priceAlertModal.querySelectorAll('.close-button');
+
+        setPriceAlertBtn.addEventListener('click', function () {
+            if (priceAlertModal) {
+                priceAlertModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            } else {
+                console.error("Price Alert Modal element not found!");
+            }
+        });
+
+        closePriceAlertButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                priceAlertModal.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close modal if user clicks outside of the modal content
+        window.addEventListener('click', function (event) {
+            if (event.target == priceAlertModal) {
+                priceAlertModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.getElementById('priceAlertForm').addEventListener('submit', async function (event) { // Added 'async'
+            event.preventDefault();
+
+            const email = document.getElementById('alert-email').value;
+            const targetPrice = document.getElementById('alert-target-price').value;
+            const frequency = document.getElementById('alert-frequency').value;
+
+            // Basic client-side validation (backend will do more robust validation)
+            if (!email) {
+                alert('Please enter your email address.');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/price-alerts', { // Endpoint updated
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        targetPrice: targetPrice ? parseFloat(targetPrice) : null, // Convert to number, or null
+                        frequency: frequency
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(data.message); // Show success message from backend
+                    priceAlertModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                    this.reset(); // Clear the form after successful submission
+                } else {
+                    alert('Error setting price alert: ' + data.message); // Show error message from backend
+                }
+
+            } catch (error) {
+                console.error('Network error or server issue:', error);
+                alert('An unexpected error occurred. Please try again later.');
+            }
+        });
+
+        // Security Guide Modal Logic
+        const securityGuideModal = document.getElementById('securityGuideModal');
+        const showSecurityGuideBtn = document.getElementById('showSecurityGuideBtn');
+        const closeSecurityGuideButtons = securityGuideModal.querySelectorAll('.close-button');
+
+        showSecurityGuideBtn.addEventListener('click', function () {
+            if (securityGuideModal) {
+                securityGuideModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            } else {
+                console.error("Security Guide Modal element not found!");
+            }
+        });
+
+        closeSecurityGuideButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                securityGuideModal.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close security guide modal if user clicks outside of the modal content
+        window.addEventListener('click', function (event) {
+            if (event.target == securityGuideModal) {
+                securityGuideModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+
+        // Passengers Dropdown Logic
+        const passengersDisplay = document.getElementById('passengersDisplay');
+        const passengersDropdown = document.getElementById('passengersDropdown');
+        const closeDropdownBtn = passengersDropdown.querySelector('.close-dropdown');
+
+        const adultsCountSpan = document.getElementById('adultsCount');
+        const childrenCountSpan = document.getElementById('childrenCount');
+        const infantsCountSpan = document.getElementById('infantsCount');
+
+        let adults = parseInt(adultsCountSpan.textContent);
+        let children = parseInt(childrenCountSpan.textContent);
+        let infants = parseInt(infantsCountSpan.textContent);
+
+        function updatePassengersDisplay() {
+            let totalPassengers = adults + children + infants;
+            let displayText = '';
+
+            if (totalPassengers === 1) {
+                displayText = '1 Traveler';
+            } else {
+                displayText = `${totalPassengers} Travelers`;
+            }
+
+            document.getElementById('passengersCount').textContent = displayText;
+        }
+
+        // Initialize display on load
+        updatePassengersDisplay();
+
+        passengersDisplay.addEventListener('click', function (event) {
+            event.stopPropagation(); // Prevent click from immediately closing the dropdown via window click
+            passengersDropdown.classList.toggle('active');
+        });
+
+        closeDropdownBtn.addEventListener('click', function () {
+            passengersDropdown.classList.remove('active');
+        });
+
+        passengersDropdown.querySelectorAll('.plus-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const type = this.dataset.type;
+                if (type === 'adults') {
+                    adults++;
+                    adultsCountSpan.textContent = adults;
+                } else if (type === 'children') {
+                    children++;
+                    childrenCountSpan.textContent = children;
+                } else if (type === 'infants') {
+                    // Limit infants to adults, or total passengers for safety if needed
+                    // For now, simple increment
+                    infants++;
+                    infantsCountSpan.textContent = infants;
+                }
+                updatePassengersDisplay();
+            });
+        });
+
+        passengersDropdown.querySelectorAll('.minus-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const type = this.dataset.type;
+                if (type === 'adults' && adults > 1) { // Minimum 1 adult
+                    adults--;
+                    adultsCountSpan.textContent = adults;
+                } else if (type === 'children' && children > 0) {
+                    children--;
+                    childrenCountSpan.textContent = children;
+                } else if (type === 'infants' && infants > 0) {
+                    infants--;
+                    infantsCountSpan.textContent = infants;
+                }
+                updatePassengersDisplay();
+            });
+        });
+
+        // Close dropdown if user clicks outside of it
+        window.addEventListener('click', function (event) {
+            if (passengersDropdown.classList.contains('active') && !passengersDropdown.contains(event.target) && event.target !== passengersDisplay) {
+                passengersDropdown.classList.remove('active');
+            }
+        });
+
+        // START: Sidebar Functionality (Adapted from admin_dashboard.html)
+        const searchResultSidebar = document.getElementById('searchResultSidebar'); // Changed ID to match HTML
+        const sidebarToggleBtn = document.getElementById('sidebarToggleBtn'); // Desktop toggle
+        const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const hamburgerMenuToggle = document.getElementById('hamburgerMenuToggle');
+        const sidebarHoverRegion = 50; // Pixels from left edge to activate hover effect
+
+        // Function to open sidebar for mobile
+        function openSidebar() {
+            searchResultSidebar.classList.add('open');
+            sidebarOverlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Prevent body scroll
+        }
+
+        // Function to close sidebar for mobile
+        function closeSidebar() {
+            searchResultSidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('visible');
+            document.body.style.overflow = ''; // Restore body scroll
+        }
+
+        // Mobile Hamburger Menu Toggle
+        if (hamburgerMenuToggle) {
+            hamburgerMenuToggle.addEventListener('click', openSidebar);
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', closeSidebar);
+        }
+
+        // Desktop sidebar toggle functionality
+        if (sidebarToggleBtn) {
+            sidebarToggleBtn.addEventListener('click', function () {
+                searchResultSidebar.classList.toggle('collapsed');
+                sidebarToggleBtn.querySelector('i').classList.toggle('fa-chevron-left');
+                sidebarToggleBtn.querySelector('i').classList.toggle('fa-chevron-right');
+            });
+        }
+
+        // Sidebar auto-expand/collapse on mouse proximity (Left region hover)
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', function (e) {
+                if (!searchResultSidebar.classList.contains('open') && e.clientX < sidebarHoverRegion && searchResultSidebar.classList.contains('collapsed')) {
+                    searchResultSidebar.classList.remove('collapsed');
+                    sidebarToggleBtn.querySelector('i').classList.remove('fa-chevron-left');
+                    sidebarToggleBtn.querySelector('i').classList.add('fa-chevron-right');
+                } else if (!searchResultSidebar.classList.contains('open') && e.clientX > searchResultSidebar.offsetWidth + 20 && !searchResultSidebar.classList.contains('collapsed') && e.target.closest('#searchResultSidebar') === null) {
+                    searchResultSidebar.classList.add('collapsed');
+                    sidebarToggleBtn.querySelector('i').classList.add('fa-chevron-left');
+                    sidebarToggleBtn.querySelector('i').classList.remove('fa-chevron-right');
+                }
+            });
+        }
+
+        // Sidebar menu link functionality (navigation)
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                // Close sidebar after selection on mobile
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // Highlight active sidebar link
+        const currentPath = window.location.pathname.split('/').pop(); // Gets 'search_result.html'
+        sidebarLinks.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPath) {
+                link.classList.add('active');
+            }
+        });
+
+        // Logout Link functionality
+        const logoutLink = document.getElementById('logoutLink');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Simulate logout by removing the login state
+                localStorage.removeItem('isLoggedIn');
+                alert('You have been logged out!');
+                window.location.href = 'login.html';
+            });
+        }
+
+        // Function to update logout button visibility
+        function updateLogoutButtonVisibility() {
+            const logoutMenuItem = document.getElementById('logoutMenuItem');
+            const isLoggedIn = localStorage.getItem('isLoggedIn'); // Check localStorage for the flag
+
+            if (logoutMenuItem) {
+                if (isLoggedIn === 'true') { // If the user is "logged in"
+                    logoutMenuItem.style.display = 'list-item'; // Show the list item
+                } else {
+                    logoutMenuItem.style.display = 'none'; // Hide it
+                }
+            }
+        }
+
+        // Call the function to set initial visibility on page load
+        updateLogoutButtonVisibility();
+
+
+        // Close sidebar if window is resized above mobile breakpoint while open
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) {
+                closeSidebar();
+            }
+        });
+        // END: Sidebar Functionality
+    </script>
+</body>
+
+</html>

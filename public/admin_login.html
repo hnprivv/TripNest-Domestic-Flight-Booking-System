@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest - Admin Login</title>
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="CSS_Files/login.css">
+</head>
+
+<body>
+    <header>
+        <h1>
+            <a href="home.html"> <img src="Images/logo4.png" alt="TripNest Logo">
+                TRIPNEST
+            </a>
+        </h1>
+    </header>
+
+    <div id="notificationPopup" class="notification-popup">
+        <div class="notification-content">
+            <i class="fas fa-times-circle"></i> <span>Invalid Admin Credentials!</span>
+        </div>
+        <div class="notification-progress-bar"></div>
+    </div>
+
+    <div class="container">
+        <div class="form-card">
+            <h2>Admin Login for TripNest</h2>
+            <form id="loginForm" action="#" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <button type="submit" class="btn btn-primary" id="loginBtn">Login</button>
+                <div class="loading-spinner" id="loadingSpinner"></div>
+                <span class="error-message general-error-message" id="generalError"></span>
+            </form>
+            <p class="signup-link">Don't have an admin account? Contact support.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const generalError = document.getElementById('generalError');
+            const loginBtn = document.getElementById('loginBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const notificationPopup = document.getElementById('notificationPopup');
+            const notificationContent = notificationPopup.querySelector('.notification-content span');
+            const notificationIcon = notificationPopup.querySelector('.notification-content i');
+            const notificationProgressBar = notificationPopup.querySelector('.notification-progress-bar');
+
+            // Function to show error messages
+            function showError(element, message) {
+                element.textContent = message;
+                element.style.display = 'block';
+                element.previousElementSibling.classList.add('input-error');
+            }
+
+            // Function to hide error messages
+            function hideError(element) {
+                element.textContent = '';
+                element.style.display = 'none';
+                element.previousElementSibling.classList.remove('input-error');
+            }
+
+            // Function to show/hide loading spinner
+            function setLoadingState(isLoading) {
+                if (isLoading) {
+                    loginBtn.disabled = true;
+                    loginBtn.style.display = 'none';
+                    loadingSpinner.style.display = 'block';
+                } else {
+                    loginBtn.disabled = false;
+                    loginBtn.style.display = 'block';
+                    loadingSpinner.style.display = 'none';
+                }
+            }
+
+            // Function to show notification popup
+            function showNotification(message, isSuccess, callback = null) {
+                notificationContent.textContent = message;
+                notificationIcon.className = isSuccess ? 'fas fa-check-circle' : 'fas fa-times-circle';
+                notificationPopup.classList.remove('success', 'error');
+                notificationPopup.classList.add(isSuccess ? 'success' : 'error');
+                notificationProgressBar.style.width = '100%'; // Reset progress bar
+                notificationPopup.classList.add('show');
+
+                // Animate progress bar
+                requestAnimationFrame(() => {
+                    notificationProgressBar.style.transition = 'width 3s linear';
+                    notificationProgressBar.style.width = '0%';
+                });
+
+                setTimeout(() => {
+                    notificationPopup.classList.remove('show');
+                    notificationProgressBar.style.transition = 'none'; // Reset transition
+                    if (callback) {
+                        callback();
+                    }
+                }, 3000); // Hide after 3 seconds
+            }
+
+            // Form submission handler
+            loginForm.addEventListener('submit', async function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                let isValid = true;
+                hideError(emailError);
+                hideError(passwordError);
+                hideError(generalError);
+
+                if (emailInput.value.trim() === '') {
+                    showError(emailError, 'Email is required.');
+                    isValid = false;
+                }
+                if (passwordInput.value.trim() === '') {
+                    showError(passwordError, 'Password is required.');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    setLoadingState(true);
+                    hideError(generalError);
+
+                    try {
+                        console.log('Attempting to fetch admin login API...');
+                        const response = await fetch('http://localhost:5000/api/admin_login', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                email: emailInput.value.trim(),
+                                password: passwordInput.value.trim()
+                            })
+                        });
+
+                        const data = await response.json();
+                        console.log('API Response received. response.ok:', response.ok, 'Data:', data);
+
+                        if (response.ok) {
+                            console.log('Admin Login successful:', data.message);
+                            localStorage.setItem('isLoggedIn', 'true'); // For now, reuse this flag
+                            window.location.href = 'admin_dashboard.html';
+                        }
+                         else {
+                            console.error('Admin Login failed:', data.message);
+                            showError(generalError, data.message || 'Login failed. Please check your credentials.');
+                        }
+                    } catch (error) {
+                        console.error('Admin Login error:', error);
+                        showError(generalError, 'Server error during login. Please try again.');
+                        showNotification('Server error during login!', false);
+                    } finally {
+                        setLoadingState(false);
+                    }
+                }
+            });
+
+            // Optional: Real-time validation as user types
+            emailInput.addEventListener('input', () => {
+                if (emailInput.value.trim() !== '') {
+                    hideError(emailError);
+                    emailInput.classList.remove('input-error');
+                }
+            });
+
+            passwordInput.addEventListener('input', () => {
+                if (passwordInput.value.trim() !== '') {
+                    hideError(passwordError);
+                    passwordInput.classList.remove('input-error');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

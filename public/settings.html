@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest - Settings</title>
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="CSS_Files/home.css">
+    <link rel="stylesheet" href="CSS_Files/settings.css">
+</head>
+
+<body>
+    <header>
+        <button class="hamburger-menu-toggle" id="hamburgerMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <h1>
+            <img src="Images/logo4.png" alt="TripNest Logo">
+            TRIPNEST
+        </h1>
+    </header>
+
+    <div class="dashboard-wrapper">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar collapsed" id="homeSidebar">
+            <button class="sidebar-toggle-btn" id="sidebarToggleBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <ul class="sidebar-menu">
+                <li><a href="home.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="search_result.html"><i class="fas fa-calendar-alt"></i> <span>Flight Schedules</span></a></li>
+                <li><a href="flight_history.html"><i class="fas fa-history"></i> <span>Flight History</span></a></li>
+                <li><a href="manage_bookings.html"><i class="fas fa-clipboard-list"></i> <span>Manage Bookings</span></a></li>
+
+                <li class="sidebar-divider"></li>
+                <li id="loginMenuItem" style="display: none;"><a href="login.html"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
+                <li id="signupMenuItem" style="display: none;"><a href="signup.html"><i class="fas fa-user-plus"></i> <span>Sign Up</span></a></li>
+
+                <li class="sidebar-divider"></li>
+                <li><a href="about_us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> <span>Contact Us</span></a></li>
+                <li><a href="settings.html" class="active"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                <li id="logoutMenuItem" style="display: none;"> <a href="login.html" id="logoutLink"><i
+                            class="fas fa-sign-out-alt"></i> <span>Log out</span></a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content-area" id="mainContentArea">
+            <div id="notificationPopup" class="notification-popup">
+                <div class="notification-content">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Changes saved!</span>
+                </div>
+                <div class="notification-progress-bar"></div>
+            </div>
+
+            <div class="content-card">
+                <h2>Account Settings</h2>
+
+                <div class="settings-sections">
+                    <div class="setting-item">
+                        <h3><i class="fas fa-user-circle"></i> Profile Information</h3>
+                        <p>Update your name, email, and contact details.</p>
+                        <button class="setting-button" data-tab="personal">Edit Profile</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <h3><i class="fas fa-lock"></i> Password & Security</h3>
+                        <p>Change your password and manage security settings.</p>
+                        <button class="setting-button" data-tab="security">Update Security</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
+                        <p>Add, edit, or remove your payment options.</p>
+                        <button class="setting-button" data-tab="payments">Manage Payments</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <h3><i class="fas fa-bell"></i> Notifications</h3>
+                        <p>Customize your email and push notification preferences.</p>
+                        <button class="setting-button" data-tab="others">Adjust Notifications</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <h3><i class="fas fa-user-shield"></i> Privacy Settings</h3>
+                        <p>Control data sharing and privacy preferences.</p>
+                        <button class="setting-button" data-tab="others">Review Privacy</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <h3><i class="fas fa-link"></i> Linked Accounts</h3>
+                        <p>Connect or disconnect social media and other accounts.</p>
+                        <button class="setting-button" data-tab="security">Manage Links</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2025 TRIPNEST. All rights reserved.
+    </footer>
+
+    <div id="editProfileModal" class="modal">
+        <div class="modal-overlay"></div>
+
+        <button class="modal-nav-arrow left" id="prevTabBtn"><i class="fas fa-chevron-left"></i></button>
+        <button class="modal-nav-arrow right" id="nextTabBtn"><i class="fas fa-chevron-right"></i></button>
+
+        <div class="modal-content-wrapper">
+            <button class="modal-close-button" id="closeEditProfileModal"><i class="fas fa-times"></i></button>
+
+            <div class="content-card edit-profile-card-modal">
+                <h2>Edit Your Profile</h2>
+
+                <div class="modal-mobile-nav-buttons">
+                    <button type="button" class="button secondary-button" id="mobilePrevTabBtn">Prev</button>
+                    <button type="button" class="button primary-button" id="mobileNextTabBtn">Next</button>
+                </div>
+
+                <form id="profileFormModal">
+                    <div class="tab-content active" id="personal">
+                        <h3>Personal Information</h3>
+                        <div class="form-group profile-picture-upload">
+                            <label>Profile Picture:</label>
+                            <div class="profile-picture-preview">
+                                <img src="Images/default_avatar.png" alt="Profile Avatar" id="profileAvatarPreview">
+                            </div>
+                            <button type="button" class="upload-button tiny-button"
+                                onclick="document.getElementById('profilePictureInput').click();">
+                                <i class="fas fa-camera"></i> Change Picture
+                            </button>
+                            <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" id="firstName" name="firstName" value="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" id="lastName" name="lastName" value="Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth:</label>
+                            <input type="date" id="dob" name="dob" value="1990-01-01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender">
+                                <option value="">Select Gender</option>
+                                <option value="male" selected>Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nationality">Nationality:</label>
+                            <input type="text" id="nationality" name="nationality" value="Pakistani" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="passportNumber">Passport Number (Optional):</label>
+                            <input type="text" id="passportNumber" name="passportNumber" value="PK1234567"
+                                placeholder="e.g., AB1234567">
+                        </div>
+                        <div class="form-group">
+                            <label for="passportExpiry">Passport Expiry Date (Optional):</label>
+                            <input type="date" id="passportExpiry" name="passportExpiry" value="2030-12-31">
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="contact">
+                        <h3>Contact Information</h3>
+                        <div class="form-group">
+                            <label for="email">Email Address:</label>
+                            <input type="email" id="email" name="email" value="john.doe@example.com" required>
+                            <span class="verification-status"><i class="fas fa-check-circle verified"></i>
+                                Verified</span>
+                            <button type="button" class="resend-verification-button">Resend Verification Email</button>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number:</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" value="+923001234567"
+                                placeholder="+92XXXXXXXXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyContactName">Emergency Contact Name:</label>
+                            <input type="text" id="emergencyContactName" name="emergencyContactName" value="Jane Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyContactPhone">Emergency Contact Phone:</label>
+                            <input type="tel" id="emergencyContactPhone" name="emergencyContactPhone"
+                                value="+923007654321" placeholder="+92XXXXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Street Address:</label>
+                            <input type="text" id="address" name="address" value="123 Main St">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City:</label>
+                            <input type="text" id="city" name="city" value="Karachi">
+                        </div>
+                        <div class="form-group">
+                            <label for="province">Province:</label>
+                            <input type="text" id="province" name="province" value="Sindh">
+                        </div>
+                        <div class="form-group">
+                            <label for="postalCode">Postal Code:</label>
+                            <input type="text" id="postalCode" name="postalCode" value="74000">
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="travel">
+                        <h3>Travel Preferences</h3>
+                        <div class="form-group">
+                            <label for="seatPreference">Preferred Seat:</label>
+                            <select id="seatPreference" name="seatPreference">
+                                <option value="">No Preference</option>
+                                <option value="window">Window</option>
+                                <option value="aisle">Aisle</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mealPreference">Preferred Meal (Multi-select):</label>
+                            <select id="mealPreference" name="mealPreference" multiple>
+                                <option value="none" selected>No Special Meal</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="gluten-free">Gluten-Free</option>
+                                <option value="halal">Halal</option>
+                            </select>
+                            <small class="hint-text">Hold Ctrl/Cmd to select multiple options.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="frequentFlyerPrograms">Frequent Flyer Programs:</label>
+                            <textarea id="frequentFlyerPrograms" name="frequentFlyerPrograms" rows="3"
+                                placeholder="Enter airline program names and numbers, e.g., PIA Awards: 123456789"></textarea>
+                            <small class="hint-text">List programs and numbers, one per line or separated by
+                                commas.</small>
+                        </div>
+                        <h4>Saved Travelers</h4>
+                        <div class="saved-travelers-list">
+                            <div class="traveler-item">
+                                <p><strong>Jane Doe</strong> (Adult)</p>
+                                <p>DOB: 1992-03-15</p>
+                                <button type="button" class="edit-traveler-button"><i class="fas fa-edit"></i>
+                                    Edit</button>
+                                <button type="button" class="remove-traveler-button"><i class="fas fa-trash-alt"></i>
+                                    Remove</button>
+                            </div>
+                            <div class="traveler-item">
+                                <p><strong>Baby Max</strong> (Infant)</p>
+                                <p>DOB: 2024-07-20</p>
+                                <button type="button" class="edit-traveler-button"><i class="fas fa-edit"></i>
+                                    Edit</button>
+                                <button type="button" class="remove-traveler-button"><i class="fas fa-trash-alt"></i>
+                                    Remove</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-traveler-button"><i class="fas fa-plus-circle"></i> Add New
+                            Traveler</button>
+                    </div>
+
+                    <div class="tab-content" id="security">
+                        <h3>Password & Security</h3>
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password:</label>
+                            <input type="password" id="currentPassword" name="currentPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password:</label>
+                            <input type="password" id="newPassword" name="newPassword"
+                                placeholder="Minimum 8 characters">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword">
+                        </div>
+                        <button type="button" class="password-change-button">Change Password</button>
+
+                        <h4 style="margin-top: 30px;">Two-Factor Authentication (2FA)</h4>
+                        <p class="two-fa-status">Status: <span class="status-indicator enabled">Enabled</span></p>
+                        <button type="button" class="two-fa-toggle-button">Disable 2FA</button>
+                        <p class="hint-text">2FA adds an extra layer of security to your account.</p>
+
+                        <h4 style="margin-top: 30px;">Connected Accounts</h4>
+                        <div class="connected-accounts-list">
+                            <div class="connected-account-item">
+                                <i class="fab fa-google"></i> Google (john.doe@gmail.com)
+                                <button type="button" class="disconnect-button">Disconnect</button>
+                            </div>
+                            <div class="connected-account-item">
+                                <i class="fab fa-facebook"></i> Facebook (John Doe)
+                                <button type="button" class="disconnect-button">Disconnect</button>
+                            </div>
+                        </div>
+                        <button type="button" class="link-account-button"><i class="fas fa-link"></i> Link New
+                            Account</button>
+                    </div>
+
+                    <div class="tab-content" id="payments">
+                        <h3>Payment Methods</h3>
+                        <p>Manage your saved credit cards and other payment options for faster bookings.</p>
+                        <div class="payment-methods-list">
+                            <div class="payment-item">
+                                Visa **** **** **** 1234 (Expires 12/26)
+                                <div class="payment-actions"> <button type="button" class="edit-payment-button"><i
+                                            class="fas fa-edit"></i> Edit</button>
+                                    <button type="button" class="remove-payment-button"><i class="fas fa-trash-alt"></i>
+                                        Remove</button>
+                                </div>
+                            </div>
+                            <div class="payment-item">
+                                Mastercard **** **** **** 5678 (Expires 08/25)
+                                <div class="payment-actions"> <button type="button" class="edit-payment-button"><i
+                                            class="fas fa-edit"></i> Edit</button>
+                                    <button type="button" class="remove-payment-button"><i class="fas fa-trash-alt"></i>
+                                        Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-payment-method-button"><i class="fas fa-plus-circle"></i> Add
+                            New Payment Method</button>
+                    </div>
+
+                    <div class="tab-content" id="others">
+                        <h3>Other Settings</h3>
+                        <div class="form-group">
+                            <label for="language">Preferred Language:</label>
+                            <select id="language" name="language">
+                                <option value="en" selected>English</option>
+                                <option value="ur">اردو (Urdu)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="currency">Preferred Currency:</label>
+                            <select id="currency" name="currency">
+                                <option value="PKR" selected>PKR (Pakistani Rupee)</option>
+                                <option value="USD">USD (US Dollar)</option>
+                                <option value="GBP">GBP (British Pound)</option>
+                                <option value="EUR">EUR (Euro)</option>
+                            </select>
+                        </div>
+
+                        <h4 style="margin-top: 30px;">Notification Preferences</h4>
+                        <div class="notification-options">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailPromotions" name="emailPromotions" checked>
+                                <label for="emailPromotions">Receive promotional emails</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="flightUpdatesSms" name="flightUpdatesSms">
+                                <label for="flightUpdatesSms">SMS for urgent flight updates</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="inAppNotifications" name="inAppNotifications" checked>
+                                <label for="inAppNotifications">Receive in-app notifications</label>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top: 30px;">Data & Privacy</h4>
+                        <div class="data-privacy-buttons">
+                            <button type="button" class="data-export-button"><i class="fas fa-download"></i> Request
+                                Data Export</button>
+                            <button type="button" class="account-delete-button danger-button"><i
+                                    class="fas fa-trash-alt"></i> Delete Account</button>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="button primary-button">Save Changes</button>
+                        <button type="button" class="button secondary-button"
+                            id="cancelEditProfileModal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Highlight active sidebar link
+            const currentPath = window.location.pathname.split('/').pop();
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+
+            sidebarLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            const homeSidebar = document.getElementById('homeSidebar');
+            const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+            const hamburgerMenuToggle = document.getElementById('hamburgerMenuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const sidebarHoverRegion = 50; // Pixels from left edge to activate hover effect
+
+            // Function to open sidebar for mobile
+            function openSidebar() {
+                homeSidebar.classList.add('open');
+                sidebarOverlay.classList.add('visible');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Function to close sidebar for mobile
+            function closeSidebar() {
+                homeSidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+
+            // Mobile Hamburger Menu Toggle
+            if (hamburgerMenuToggle) {
+                hamburgerMenuToggle.addEventListener('click', openSidebar);
+            }
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', closeSidebar);
+            }
+
+            // Desktop sidebar toggle functionality
+            if (sidebarToggleBtn) {
+                sidebarToggleBtn.addEventListener('click', function () {
+                    homeSidebar.classList.toggle('collapsed');
+                    sidebarToggleBtn.querySelector('i').classList.toggle('fa-chevron-left');
+                    sidebarToggleBtn.querySelector('i').classList.toggle('fa-chevron-right');
+                });
+            }
+
+            // Sidebar auto-expand/collapse on mouse proximity (Left region hover)
+            // Only enable on desktop
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', function (e) {
+                    if (!homeSidebar.classList.contains('open') && e.clientX < sidebarHoverRegion && homeSidebar.classList.contains('collapsed')) {
+                        homeSidebar.classList.remove('collapsed');
+                        sidebarToggleBtn.querySelector('i').classList.remove('fa-chevron-left');
+                        sidebarToggleBtn.querySelector('i').classList.add('fa-chevron-right');
+                    } else if (!homeSidebar.classList.contains('open') && e.clientX > homeSidebar.offsetWidth + 20 && !homeSidebar.classList.contains('collapsed') && e.target.closest('#homeSidebar') === null) {
+                        homeSidebar.classList.add('collapsed');
+                        sidebarToggleBtn.querySelector('i').classList.add('fa-chevron-left');
+                        sidebarToggleBtn.querySelector('i').classList.remove('fa-chevron-right');
+                    }
+                });
+            }
+
+            // Close sidebar after selection on mobile
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.innerWidth <= 768 && homeSidebar.classList.contains('open')) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+            // Logout Link functionality
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Simulate logout by removing the login state
+                    localStorage.removeItem('isLoggedIn');
+
+                    updateLogoutButtonVisibility();
+                    alert('You have been logged out!');
+                });
+            }
+
+            // Function to update logout button visibility
+            function updateLogoutButtonVisibility() {
+                const logoutMenuItem = document.getElementById('logoutMenuItem');
+                const loginMenuItem = document.getElementById('loginMenuItem');
+                const signupMenuItem = document.getElementById('signupMenuItem');
+                const isLoggedIn = localStorage.getItem('isLoggedIn'); // Check localStorage for the flag
+
+                if (logoutMenuItem) {
+                    if (isLoggedIn === 'true') { // If the user IS logged in
+                        logoutMenuItem.style.display = 'list-item'; // SHOW the logout button
+                        loginMenuItem.style.display = 'none'; // HIDE the login button
+                        signupMenuItem.style.display = 'none'; // HIDE the signup button
+
+                    } else { // If the user IS NOT logged in
+                        logoutMenuItem.style.display = 'none'; // HIDE the logout button
+                        loginMenuItem.style.display = 'list-item'; // SHOW the login button
+                        signupMenuItem.style.display = 'list-item'; // SHOW the signup button
+                    }
+                } else {
+                }
+            }
+
+            // Call the function to set initial visibility on page load
+            updateLogoutButtonVisibility();
+
+            // Close sidebar if window is resized above mobile breakpoint while open
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) {
+                    closeSidebar();
+                }
+            });
+
+            // --- Modal Specific JavaScript ---
+            const editProfileModal = document.getElementById('editProfileModal');
+            const modalOverlay = editProfileModal.querySelector('.modal-overlay');
+            const settingButtons = document.querySelectorAll('.setting-item .setting-button');
+            const closeEditProfileModalButton = document.getElementById('closeEditProfileModal');
+            const cancelEditProfileModalButton = document.getElementById('cancelEditProfileModal');
+
+            // Navigation Arrow Buttons (desktop)
+            const prevTabBtn = document.getElementById('prevTabBtn');
+            const nextTabBtn = document.getElementById('nextTabBtn');
+
+            // NEW: Mobile Navigation Buttons
+            const mobilePrevTabBtn = document.getElementById('mobilePrevTabBtn');
+            const mobileNextTabBtn = document.getElementById('mobileNextTabBtn');
+            const modalMobileNavButtons = document.querySelector('.modal-mobile-nav-buttons');
+
+
+            // Get references to modal's tab contents
+            const modalTabContents = document.querySelectorAll('#profileFormModal .tab-content');
+
+            // Define the order of tabs/sections and a mapping for easy lookup
+            const tabOrder = ["personal", "contact", "travel", "security", "payments", "others"];
+            let currentTabIndex = 0; // Keep track of the currently displayed tab index
+
+            // Function to show a specific tab/section by its index
+            function showTab(index) {
+                if (index < 0 || index >= modalTabContents.length) {
+                    return; // Invalid index
+                }
+
+                // Deactivate all tab content
+                modalTabContents.forEach(content => content.classList.remove('active'));
+
+                // Activate the content at the given index
+                modalTabContents[index].classList.add('active');
+                currentTabIndex = index; // Update the global index
+
+                // Update the state of navigation arrows/buttons
+                updateNavControls();
+
+                // Optional: Scroll to top of modal content when switching tabs for better UX
+                const modalContentWrapper = editProfileModal.querySelector('.modal-content-wrapper');
+                if (modalContentWrapper) {
+                    modalContentWrapper.scrollTop = 0;
+                }
+            }
+
+            // NEW: Function to update the disabled state of ALL navigation controls
+            function updateNavControls() {
+                // Desktop arrows
+                prevTabBtn.disabled = (currentTabIndex === 0);
+                nextTabBtn.disabled = (currentTabIndex === modalTabContents.length - 1);
+
+                // Mobile buttons
+                mobilePrevTabBtn.disabled = (currentTabIndex === 0);
+                mobileNextTabBtn.disabled = (currentTabIndex === modalTabContents.length - 1);
+
+                // Hide/show mobile buttons on the last/first tab
+                if (currentTabIndex === modalTabContents.length - 1) {
+                    mobileNextTabBtn.style.display = 'none';
+                    // If also the first tab (only one tab), hide Prev too
+                    if (currentTabIndex === 0) {
+                        mobilePrevTabBtn.style.display = 'none';
+                    } else {
+                        mobilePrevTabBtn.style.display = ''; // Show prev if not first tab
+                    }
+                } else if (currentTabIndex === 0) {
+                    mobilePrevTabBtn.style.display = 'none';
+                    mobileNextTabBtn.style.display = ''; // Show next if not last tab
+                } else {
+                    mobilePrevTabBtn.style.display = ''; // Show both
+                    mobileNextTabBtn.style.display = '';
+                }
+            }
+
+            function openEditProfileModal(targetTabId) {
+                editProfileModal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling of background
+
+                // Determine the index of the tab/section to open
+                const targetIndex = tabOrder.indexOf(targetTabId);
+
+                if (targetIndex !== -1) {
+                    showTab(targetIndex); // Show the specific section requested
+                } else {
+                    showTab(0); // Default to the first section ("personal") if targetId is not found
+                    console.warn(`Section with ID "${targetTabId}" not found. Defaulting to 'personal'.`);
+                }
+            }
+
+            function closeEditProfileModal() {
+                editProfileModal.classList.remove('show');
+                document.body.style.overflow = ''; // Re-enable scrolling
+
+                // Reset to the first section when closing the modal
+                showTab(0);
+            }
+
+            // Event listeners for ALL setting buttons (that now open the modal)
+            settingButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetTab = this.dataset.tab; // Get the value from data-tab attribute
+                    openEditProfileModal(targetTab); // Pass it to the function
+                });
+            });
+
+            // Event listeners for closing the modal
+            if (closeEditProfileModalButton) {
+                closeEditProfileModalButton.addEventListener('click', closeEditProfileModal);
+            }
+            if (modalOverlay) {
+                modalOverlay.addEventListener('click', closeEditProfileModal);
+            }
+            if (cancelEditProfileModalButton) {
+                cancelEditProfileModalButton.addEventListener('click', closeEditProfileModal);
+            }
+
+            // Event listeners for desktop navigation arrows
+            if (prevTabBtn) {
+                prevTabBtn.addEventListener('click', () => showTab(currentTabIndex - 1));
+            }
+            if (nextTabBtn) {
+                nextTabBtn.addEventListener('click', () => showTab(currentTabIndex + 1));
+            }
+
+            // NEW: Event listeners for mobile navigation buttons
+            if (mobilePrevTabBtn) {
+                mobilePrevTabBtn.addEventListener('click', () => showTab(currentTabIndex - 1));
+            }
+            if (mobileNextTabBtn) {
+                mobileNextTabBtn.addEventListener('click', () => showTab(currentTabIndex + 1));
+            }
+
+
+            // --- Form submission logic for the modal ---
+            const profileFormModal = document.getElementById('profileFormModal');
+            const notificationPopup = document.getElementById('notificationPopup');
+            const progressBar = notificationPopup.querySelector('.notification-progress-bar');
+            const redirectDelay = 2000; // 2 seconds for the popup and progress bar
+
+            if (profileFormModal) {
+                profileFormModal.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    console.log('Simulating save changes from modal...');
+
+                    // Show the notification popup
+                    notificationPopup.classList.add('show');
+                    progressBar.style.width = '0%'; // Reset progress bar
+
+                    // Animate the progress bar
+                    setTimeout(() => {
+                        progressBar.style.transition = `width ${redirectDelay / 1000}s linear`;
+                        progressBar.style.width = '100%';
+                    }, 50);
+
+                    // After the delay, hide the popup, close modal
+                    setTimeout(() => {
+                        notificationPopup.classList.remove('show');
+                        progressBar.style.transition = 'none';
+                        progressBar.style.width = '0%';
+                        closeEditProfileModal(); // Close the modal
+                    }, redirectDelay);
+                });
+            }
+
+            // Profile Picture Upload Preview (adapted for modal)
+            const profilePictureInput = document.getElementById('profilePictureInput');
+            const profileAvatarPreview = document.getElementById('profileAvatarPreview');
+
+            if (profilePictureInput && profileAvatarPreview) {
+                profilePictureInput.addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            profileAvatarPreview.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            // Dummy event listeners for other buttons inside the modal (e.g., Edit Traveler, Change Password)
+            document.querySelectorAll('#profileFormModal .edit-traveler-button, #profileFormModal .remove-traveler-button, #profileFormModal .add-traveler-button, #profileFormModal .edit-payment-button, #profileFormModal .remove-payment-button, #profileFormModal .add-payment-method-button, #profileFormModal .password-change-button, #profileFormModal .two-fa-toggle-button, #profileFormModal .disconnect-button, #profileFormModal .link-account-button, #profileFormModal .data-export-button, #profileFormModal .account-delete-button, #profileFormModal .resend-verification-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    if (this.classList.contains('account-delete-button')) {
+                        const confirmDelete = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+                        if (confirmDelete) {
+                            alert("Account deletion initiated. (Backend process would occur here)");
+                            // Redirect to login or home after deletion
+                            window.location.href = 'login.html';
+                        }
+                    } else {
+                        alert(`Action triggered: "${this.textContent.trim()}". This would typically open a sub-modal or perform a specific action within the modal.`);
+                    }
+                });
+            });
+
+            // Initial call to update nav controls when modal is opened
+            // (You might want to ensure this is called reliably when modal first appears)
+            // It's already called in showTab(), which is called by openEditProfileModal()
+            // So, this is fine.
+        });
+    </script>
+</body>
+
+</html>

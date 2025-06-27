@@ -1,0 +1,1367 @@
+:root {
+    --primary-blue: #291f13; /* Dark brown/blue */
+    --secondary-blue: #6a5742; /* Medium brown/taupe */
+    --accent-color: #332618; /* Darker brown/accent */
+    --text-color: #333;
+    --light-gray: #f4f4f4; /* For container background and search summary */
+    --border-color: #ddd;
+    --padding-base: 20px;
+
+    /* Sidebar Variables */
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 60px;
+    --sidebar-bg: #423629; /* Darker tone for sidebar */
+    --sidebar-link-hover: #6a5742; /* Lighter secondary blue (this is the desired active background) */
+    --sidebar-text-color: white;
+    --sidebar-divider-color: rgba(255, 255, 255, 0.15); /* Thin gray line for dividers */
+    --active-border-color: #e67e22; /* Consistent orange for active border */
+    --active-icon-color: #e67e22; /* Consistent orange for active icon */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Header --- */
+header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: var(--padding-base) 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: var(--padding-base);
+    padding-right: var(--padding-base);
+    position: relative;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    flex-grow: 0;
+    justify-content: center;
+}
+
+header h1 img {
+    height: 1.5em;
+    margin-right: 10px;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+/* Profile Dropdown Container - REMOVED FROM HEADER */
+.profile-dropdown-container {
+    display: none;
+}
+
+/* Profile Icon & Menu - REMOVED FROM HEADER */
+.profile-icon,
+.profile-dropdown-menu {
+    display: none;
+}
+
+
+/* --- Hamburger Menu Toggle (for mobile) --- */
+.hamburger-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8em;
+    cursor: pointer;
+    position: absolute;
+    left: var(--padding-base);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 5px;
+}
+
+/* --- Dashboard Layout --- */
+.dashboard-wrapper {
+    display: flex;
+    flex-grow: 1;
+    background-color: var(--light-gray);
+    position: relative;
+}
+
+/* --- Sidebar Overlay (for mobile) --- */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 90;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.sidebar-overlay.visible {
+    display: block;
+    opacity: 1;
+}
+
+/* Corrected Sidebar ID from #adminSidebar to .sidebar (main sidebar) */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+    transition: width 0.3s ease, transform 0.3s ease;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.sidebar-toggle-btn {
+    position: absolute;
+    top: 20px;
+    right: -15px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 60;
+}
+
+.sidebar-toggle-btn:hover {
+    background-color: var(--primary-blue);
+    transform: scale(1.1);
+}
+
+/* Removed sidebar-header and its children styling as the div is removed from HTML */
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    padding-top: 20px; /* Added padding to top now that header is removed */
+}
+
+/* MODIFIED: Sidebar Menu Item Styling */
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px; /* Consistent padding */
+    color: var(--sidebar-text-color);
+    text-decoration: none;
+    font-size: 1.05em;
+    transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+/* Standard Hover State (for non-active links): Background changes to lighter brown, text remains white */
+.sidebar-menu li a:hover {
+    background-color: var(--sidebar-link-hover);
+    color: white;
+}
+
+/* Styles for the ACTIVE sidebar link (matches image_9dfc62.png) */
+.sidebar-menu a.active {
+    background-color: var(--sidebar-link-hover); /* Lighter background */
+    color: white; /* White text */
+    font-weight: 600;
+    border-left: 4px solid var(--active-border-color); /* Orange border */
+    padding-left: 16px; /* Adjust padding to accommodate the border */
+}
+
+/* Icon color for the ACTIVE link */
+.sidebar-menu a.active i {
+    color: var(--active-icon-color); /* Orange icon */
+}
+
+/* Ensure that HOVERING over an ACTIVE link keeps its appearance IDENTICAL to the active state. */
+.sidebar-menu a.active:hover {
+    background-color: var(--sidebar-link-hover); /* Maintain lighter background on hover */
+    color: white; /* Maintain white text on hover */
+    border-left: 4px solid var(--active-border-color); /* Ensure border remains */
+    padding-left: 16px; /* Ensure padding remains */
+}
+
+/* Ensure the icon within an ACTIVE and HOVERED link remains orange */
+.sidebar-menu a.active:hover i {
+    color: var(--active-icon-color); /* Maintain orange icon on hover */
+}
+
+.sidebar-menu li a i {
+    font-size: 1.4em;
+    margin-right: 15px;
+    width: 25px;
+    text-align: center;
+    transition: margin-right 0.3s ease, color 0.3s ease;
+}
+
+.sidebar.collapsed .sidebar-menu li a i {
+    margin-right: 0;
+}
+
+.sidebar.collapsed .sidebar-menu li a span {
+    display: none;
+}
+
+/* NEW: Divider for specific list items (based on the class added in HTML) */
+.sidebar-divider { /* Changed from .menu-section-divider for consistency with flight_booking.css */
+    height: 1px;
+    background-color: var(--sidebar-divider-color);
+    margin: 10px 20px;
+    transition: opacity 0.3s ease;
+}
+
+/* Adjust padding/margin for the first item after a divider if needed */
+.sidebar-menu li.menu-section-divider:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+
+/* Sidebar Footer for Log Out - REMOVED (Logout is now directly in sidebar-menu controlled by JS) */
+.sidebar-footer {
+    display: none; /* Hide this section if logout is moved to menu */
+}
+
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: var(--padding-base) calc(var(--padding-base) * 1.5);
+    background-color: var(--light-gray);
+    overflow-y: auto;
+}
+
+.content-section {
+    display: block;
+    background-color: white;
+    padding: calc(var(--padding-base) * 1.5);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: var(--padding-base);
+}
+
+h2 {
+    color: var(--secondary-blue);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-bottom: var(--padding-base);
+    font-size: 1.8em;
+    text-align: center;
+}
+
+/* Search Bar Section */
+.search-bar-section {
+    background-color: white;
+    padding: var(--padding-base) 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    margin-bottom: var(--padding-base);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-bar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--padding-base);
+}
+
+.flight-search-form {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    gap: 15px;
+    align-items: flex-end; /* Aligns items to the bottom, useful for different input heights */
+    justify-content: space-around; /* Changed to space-around for better distribution when shrinking */
+    transition: all 0.3s ease; /* Smooth transition for layout changes */
+}
+
+.flight-search-form .form-group {
+    /* flex: 1 1 auto; // Original flexible setting */
+    flex: 1 1 120px; /* Adjusted flex-basis to be smaller, allowing more shrinking */
+    min-width: 90px; /* Drastically reduced min-width */
+    margin-bottom: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.flight-search-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--secondary-blue);
+    font-size: 0.9em;
+}
+
+.flight-search-form input[type="text"],
+.flight-search-form input[type="date"],
+.flight-search-form input[type="number"],
+.flight-search-form select {
+    width: 100%;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fcfcfc;
+    color: var(--text-color);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.flight-search-form select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236a5742%22%20d%3D%22M287%2C118.8L146.2%2C259.6L5.4%2C118.8c-0.8-0.8-1.4-1.6-1.9-2.4c-0.5-0.8-0.9-1.6-1.1-2.4c-0.2-0.8-0.2-1.6-0.2-2.4s0-1.6%200.2-2.4c0.2-0.8%200.6-1.6%201.1-2.4c0.5-0.8%201.1-1.6%201.9-2.4c1.6-1.6%203.7-2.4%205.9-2.4h275.6c2.2%2C0%204.3%2C0.8%205.9%2C2.4c1.6%2C1.6%202.4%2C3.7%202.4%2C5.9s-0.8%2C4.3-2.4%2C5.9C288.6%2C117.2%2C287.8%2C118%2C287%2C118.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px auto;
+    padding-right: 30px;
+}
+
+.flight-search-form input[type="date"] {
+    background-image: none;
+    padding-right: 12px;
+}
+
+/* Passengers Display Box */
+.passengers-group {
+    position: relative;
+}
+
+.passengers-display-box {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 0.9em;
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.passengers-display-box:hover {
+    border-color: var(--accent-color);
+}
+
+.passengers-display-box i {
+    color: var(--secondary-blue);
+    font-size: 1.1em;
+}
+
+/* Passengers Dropdown Modal */
+.passengers-dropdown {
+    position: absolute;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    z-index: 100;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 280px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.passengers-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.passengers-dropdown .dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.passengers-dropdown .dropdown-header h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: var(--primary-blue);
+}
+
+.passengers-dropdown .dropdown-header .close-dropdown {
+    font-size: 1.4em;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.passengers-dropdown .dropdown-header .close-dropdown:hover {
+    color: black;
+}
+
+.traveler-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+}
+
+.traveler-type:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.traveler-type .type-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.traveler-type .type-info i {
+    font-size: 1.5em;
+    color: var(--secondary-blue);
+}
+
+.traveler-type .type-info span strong {
+    display: block;
+    font-size: 1em;
+    color: var(--text-color);
+}
+
+.traveler-type .type-info span small {
+    font-size: 0.75em;
+    color: #888;
+}
+
+.counter-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.counter-control button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background-color: #f5f5f5;
+    color: var(--primary-blue);
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.counter-control button:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+.counter-control .count {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-color);
+    min-width: 20px;
+    text-align: center;
+}
+
+.search-flights-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Updated flex properties for the button */
+    flex-shrink: 0; /* Changed to 0 so it doesn't shrink more than necessary */
+    flex-grow: 0; /* Changed to 0 to preserve its size */
+    flex-basis: content; /* Let content dictate initial size, then clamp by min-width */
+    min-width: 150px; /* Set a specific minimum width for the button itself */
+    height: 40px; /* Keep consistent height with other inputs */
+    white-space: nowrap; /* Prevent the button text from wrapping */
+    box-sizing: border-box;
+}
+
+.search-flights-btn i {
+    font-size: 1em;
+}
+
+.search-flights-btn:hover {
+    background-color: var(--accent-color);
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: var(--padding-base) auto;
+    padding: var(--padding-base);
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: var(--padding-base);
+    flex-grow: 1;
+}
+
+/* This .sidebar is the filter sidebar, not the main menu sidebar */
+.container .sidebar {
+    flex: 0 0 250px;
+    background-color: white;
+    padding: var(--padding-base);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    align-self: flex-start;
+    /* Reset sidebar styles from the main menu sidebar */
+    width: auto;
+    position: static;
+    transform: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: block;
+}
+
+.main-content {
+    flex-grow: 1;
+}
+
+.filter-section h3 {
+    color: var(--accent-color);
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--secondary-blue);
+    font-size: 0.9em;
+}
+
+.filter-group select,
+.filter-group input[type="text"],
+.filter-group input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9em;
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+    color: var(--text-color);
+}
+
+.filter-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.filter-group .checkbox-item {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.filter-group .checkbox-item label {
+    display: inline;
+    margin-bottom: 0;
+    font-weight: 400;
+    color: #555;
+}
+
+.price-range-display {
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 5px;
+    color: #555;
+}
+
+.sort-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--padding-base);
+    padding: 10px 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.sort-options label {
+    margin-right: 10px;
+    font-weight: 600;
+    color: var(--secondary-blue);
+    font-size: 0.95em;
+    white-space: nowrap;
+}
+
+.sort-options select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95em;
+    background-color: #fcfcfc;
+    color: var(--text-color);
+}
+
+.sort-right-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.flight-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-base);
+}
+
+.flight-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.flight-card:hover {
+    transform: translateY(-3px);
+}
+
+.flight-header {
+    background-color: var(--secondary-blue);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flight-header .airline-info {
+    display: flex;
+    align-items: center;
+}
+
+.flight-header .airline-name {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.flight-header .flight-type {
+    font-size: 0.9em;
+}
+
+.flight-details {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.flight-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 150px;
+}
+
+.flight-segment .time {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.flight-segment .airport-code {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.flight-segment .city-name {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.flight-duration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    padding: 0 10px;
+    color: #777;
+    font-size: 0.9em;
+}
+
+.flight-duration hr {
+    width: 100%;
+    border: none;
+    border-top: 1px dashed var(--border-color);
+    margin: 5px 0;
+}
+
+.action-section {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    justify-content: center;
+    gap: 5px;
+}
+
+.flight-price {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary-blue);
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.flight-price .currency {
+    font-size: 0.7em;
+    font-weight: 400;
+    vertical-align: super;
+    margin-right: 2px;
+}
+
+.book-button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.book-button:hover {
+    background-color: #423629;
+}
+
+/* --- Interactive Flight Details --- */
+.flight-extra-details {
+    background-color: #f9f9f9;
+    padding: 0 var(--padding-base);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.7s ease-out, opacity 0.7s ease-out, padding-top 0.7s ease-out, padding-bottom 0.7s ease-out;
+    border-top: 1px dashed var(--border-color);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--padding-base);
+}
+
+.flight-extra-details.active {
+    max-height: 800px;
+    opacity: 1;
+    padding-top: var(--padding-base);
+    padding-bottom: var(--padding-base);
+}
+
+.details-section {
+    flex: 1 1 calc(33.33% - var(--padding-base));
+    min-width: 180px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.details-section h4 {
+    color: var(--secondary-blue);
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.details-section p {
+    font-size: 0.85em;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.details-section p strong {
+    color: var(--accent-color);
+}
+
+.view-details-btn {
+    background-color: #f0f0f0;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 0 0 8px 8px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+.view-details-btn:hover {
+    background-color: #e0e0e0;
+    color: var(--primary-blue);
+}
+
+.fare-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+.fare-item:not(.total-fare) {
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.fare-item:last-of-type {
+    border-bottom: none;
+}
+
+.fare-item .fare-label {
+    font-weight: 500;
+}
+
+.fare-item .fare-value {
+    font-weight: 600;
+    color: var(--primary-blue);
+}
+
+.fare-item.total-fare {
+    font-weight: 700;
+    font-size: 1.05em;
+    color: var(--accent-color);
+    border-top: 2px solid var(--accent-color);
+    padding-top: 10px;
+    margin-top: 8px;
+}
+
+.fare-note {
+    font-size: 0.75em;
+    color: #888;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* --- Price Alert Button (within sort-options) --- */
+.set-price-alert-btn {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.set-price-alert-btn i {
+    font-size: 1em;
+}
+
+.set-price-alert-btn:hover {
+    background-color: #423629;
+}
+
+/* --- Security Guide Button (consistent styling) --- */
+.security-guide-btn {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.security-guide-btn i {
+    font-size: 1em;
+}
+
+.security-guide-btn:hover {
+    background-color: #423629;
+}
+
+/* --- On-board Amenities Indicators (Updated Placement & Size) --- */
+.amenities-indicators {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 5px;
+    justify-content: center;
+}
+
+.amenity-item {
+    font-size: 0.8em;
+    color: #777;
+    display: flex;
+    align-items: center;
+}
+
+.amenity-item i {
+    font-size: 0.9em;
+    color: var(--secondary-blue);
+    margin-right: 3px;
+}
+
+.amenity-item .no-amenity {
+    color: #ccc;
+}
+
+/* --- Generic Modal Styles --- */
+.app-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.app-modal-content {
+    background-color: white;
+    margin: auto;
+    padding: var(--padding-base) calc(var(--padding-base) * 1.5);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    text-align: left;
+    animation-name: animatemodal;
+    animation-duration: 0.4s;
+}
+
+@keyframes animatemodal {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.app-modal-content .close-button {
+    color: #aaa;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.app-modal-content .close-button:hover,
+.app-modal-content .close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.app-modal-content h3 {
+    color: var(--primary-blue);
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: var(--padding-base);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.app-modal-content p {
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+    margin-bottom: var(--padding-base);
+}
+
+.app-modal-content .form-group {
+    margin-bottom: 15px;
+}
+
+.app-modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--secondary-blue);
+    font-size: 0.9em;
+}
+
+.app-modal-content input[type="email"],
+.app-modal-content input[type="number"],
+.app-modal-content select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fcfcfc;
+    color: var(--text-color);
+}
+
+.app-modal-content input[type="email"]:focus,
+.app-modal-content input[type="number"]:focus,
+.app-modal-content select:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+.app-modal-content small.form-text {
+    font-size: 0.75em;
+    color: #777;
+    margin-top: 5px;
+    display: block;
+}
+
+.security-guide-modal .app-modal-content ul {
+    list-style: disc inside;
+    margin-left: var(--padding-base);
+    padding: 0;
+    text-align: left;
+    margin-bottom: var(--padding-base);
+}
+
+.security-guide-modal .app-modal-content ul li {
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #444;
+}
+
+.security-guide-modal .app-modal-content ul li strong {
+    color: var(--accent-color);
+}
+
+.security-guide-modal .app-modal-content .modal-link-text {
+    font-size: 0.85em;
+    text-align: center;
+    margin-top: var(--padding-base);
+}
+
+.security-guide-modal .app-modal-content .modal-link-text a {
+    color: var(--secondary-blue);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.security-guide-modal .app-modal-content .modal-link-text a:hover {
+    color: var(--primary-blue);
+}
+
+.create-alert-btn {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.create-alert-btn:hover {
+    background-color: #423629;
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: var(--padding-base);
+    color: #777;
+    font-size: 0.9em;
+    margin-top: auto;
+    background-color: white;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* --- Responsive adjustments --- */
+@media (max-width: 1200px) { /* Added a new breakpoint for more granular control */
+    .flight-search-form {
+        /* On larger screens but with sidebar open, items might start to shrink */
+        gap: 10px; /* Slightly reduce gap to save space */
+        justify-content: center; /* Center items if they don't fill the row entirely */
+    }
+
+    .flight-search-form .form-group {
+        min-width: 90px; /* Further reduce min-width for more aggressive shrinking */
+        flex-basis: 100px; /* Give it a more fixed basis to try and keep it inline */
+    }
+
+    .search-flights-btn {
+        padding: 10px 15px; /* Slightly reduce padding on button */
+        min-width: 130px; /* Allow button to shrink a bit as well */
+    }
+}
+
+@media (max-width: 992px) {
+    /* ... existing container, main-content, flight-details, etc. ... */
+
+    /* Mobile Header and Sidebar (main menu) */
+    header {
+        justify-content: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .hamburger-menu-toggle {
+        display: block;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    header h1 img {
+        height: 40px;
+    }
+
+    /* Main menu sidebar on mobile */
+    .sidebar#searchResultSidebar { /* Target this specific sidebar ID */
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 280px;
+        padding: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+        flex-direction: column;
+    }
+
+    .sidebar#searchResultSidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-toggle-btn {
+        display: none;
+    }
+
+    /* Removed sidebar-header and its children styling for mobile too */
+
+    .sidebar-menu {
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        padding-top: 20px;
+        /* Added padding to top now that header is removed */
+    }
+
+    .sidebar-menu li {
+        min-width: unset;
+        flex: unset;
+    }
+
+    .sidebar-menu li a {
+        flex-direction: row;
+        padding: 15px 20px;
+    }
+
+    .sidebar-menu li a i {
+        margin-right: 15px;
+    }
+
+    .sidebar-menu li a span {
+        display: inline;
+        font-size: 1.05em;
+    }
+
+    /* Mobile divider adjustment */
+    .sidebar-divider { /* Changed from .menu-section-divider for consistency */
+        border-top: 1px solid var(--sidebar-divider-color);
+        padding-top: 5px;
+        margin-top: 5px;
+    }
+
+    .dashboard-content {
+        padding: var(--padding-base);
+    }
+
+    .dashboard-content h2 {
+        font-size: 1.6em;
+    }
+
+    /* Responsive for modals */
+    .app-modal-content {
+        width: 95%;
+        padding: var(--padding-base);
+    }
+
+    .amenities-indicators {
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .amenity-item {
+        font-size: 0.75em;
+    }
+
+    .amenity-item i {
+        font-size: 0.85em;
+    }
+
+    /* Responsive adjustments for search bar */
+    .flight-search-form {
+        flex-direction: column; /* Force wrap to column layout on smaller mobile */
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .flight-search-form .form-group {
+        min-width: unset; /* Remove min-width as they will be full width */
+        width: 100%;
+    }
+
+    .search-flights-btn {
+        width: 100%; /* Make button full width on small screens */
+        white-space: normal; /* Allow button text to wrap if necessary */
+    }
+
+    /* Adjust passenger dropdown for smaller screens */
+    .passengers-dropdown {
+        width: 100%;
+        max-width: none;
+        left: 0;
+        right: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    header h1 img {
+        height: 40px;
+        margin-right: 5px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .search-bar-container {
+        padding: 0 15px;
+    }
+}

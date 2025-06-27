@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest - Flight Booking</title>
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="CSS_Files/flight_booking.css">
+
+</head>
+
+<body>
+    <header>
+        <button class="hamburger-menu-toggle" id="hamburgerMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <h1>
+            <a href="home.html">
+                <img src="Images/logo4.png" alt="TripNest Logo">
+                TRIPNEST
+            </a>
+        </h1>
+    </header>
+
+    <div class="dashboard-wrapper">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar collapsed" id="bookingSidebar">
+            <button class="sidebar-toggle-btn" id="sidebarToggleBtn">
+                <i class="fas fa-chevron-right"></i> </button>
+            <ul class="sidebar-menu">
+                <li><a href="home.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="flight_booking.html"><i class="fas fa-plane"></i> <span>Book Flight</span></a></li>
+                <li><a href="search_result.html"><i class="fas fa-calendar-alt"></i> <span>Flight Schedules</span></a>
+                </li>
+                <li><a href="flight_history.html"><i class="fas fa-history"></i> <span>Flight History</span></a></li>
+                <li><a href="manage_bookings.html"><i class="fas fa-clipboard-list"></i> <span>Manage
+                            Bookings</span></a></li>
+
+                <li class="sidebar-divider"></li>
+                <li id="loginMenuItem" style="display: none;"><a href="login.html"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
+                <li id="signupMenuItem" style="display: none;"><a href="signup.html"><i class="fas fa-user-plus"></i> <span>Sign Up</span></a></li>
+
+                <li class="sidebar-divider"></li>
+                <li><a href="about_us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> <span>Contact Us</span></a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                <li id="logoutMenuItem" style="display: none;"> <a href="login.html" id="logoutLink"><i
+                            class="fas fa-sign-out-alt"></i> <span>Log out</span></a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content-area" id="mainContentArea">
+            <div class="container">
+                <form action="search_result.html" method="GET">
+                    <div class="section">
+                        <div class="section-header" data-target="flight-details-content">
+                            <span>1. Book Your Flight</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="form-content" id="flight-details-content">
+                            <div class="form-section">
+                                <div class="form-group full-width">
+                                    <label>Trip Type</label>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="trip_type" value="one_way" checked> One-way</label>
+                                        <label><input type="radio" name="trip_type" value="round_trip"> Round-trip</label>
+                                        <label><input type="radio" name="trip_type" value="multi_city" disabled> Multi-city
+                                            (Coming Soon)</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="departure_location">Departure Location (From)</label>
+                                    <input type="text" id="departure_location" name="departure_location"
+                                        placeholder="e.g., Karachi (KHI)" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="destination_location">Destination Location (To)</label>
+                                    <input type="text" id="destination_location" name="destination_location"
+                                        placeholder="e.g., Lahore (LHE)" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="departure_date">Departure Date</label>
+                                    <input type="date" id="departure_date" name="departure_date" required>
+                                </div>
+
+                                <div class="form-group" id="return_date_group">
+                                    <label for="return_date">Return Date</label>
+                                    <input type="date" id="return_date" name="return_date">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="travel_class">Travel Class</label>
+                                    <select id="travel_class" name="travel_class">
+                                        <option value="economy">Economy</option>
+                                        <option value="premium_economy">Premium Economy</option>
+                                        <option value="business">Business</option>
+                                        <option value="first">First</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="adults">Number of Adults</label>
+                                    <input type="number" id="adults" name="adults" min="1" value="1" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="children">Number of Children (2-11 years)</label>
+                                    <input type="number" id="children" name="children" min="0" value="0">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="infants">Number of Infants (Under 2 years)</label>
+                                    <input type="number" id="infants" name="infants" min="0" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-header" data-target="passenger-details-content">
+                            <span>2. Passenger Details</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="form-content" id="passenger-details-content">
+                            <div class="form-section">
+                                <div class="form-group">
+                                    <label for="full_name">Full Name</label>
+                                    <input type="text" id="full_name" name="full_name" placeholder="As per Passport/ID"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" name="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dob">Date of Birth</label>
+                                    <input type="date" id="dob" name="dob" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nationality">Nationality</label>
+                                    <input type="text" id="nationality" name="nationality" placeholder="e.g., Pakistani"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="passport_number">Passport Number (Optional)</label>
+                                    <input type="text" id="passport_number" name="passport_number"
+                                        placeholder="e.g., A12345678">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="+923001234567" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="meal_preference">Meal Preference</label>
+                                    <select id="meal_preference" name="meal_preference">
+                                        <option value="none">No Preference</option>
+                                        <option value="vegetarian">Vegetarian</option>
+                                        <option value="vegan">Vegan</option>
+                                        <option value="gluten_free">Gluten-Free</option>
+                                        <option value="kosher">Kosher</option>
+                                        <option value="halal">Halal</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="seat_preference">Seat Preference</label>
+                                    <select id="seat_preference" name="seat_preference">
+                                        <option value="Any">Any</option>
+                                        <option value="Window">Window</option>
+                                        <option value="Aisle">Aisle</option>
+                                        <option value="Middle">Middle</option>
+                                    </select>
+                                    <small class="seat-map-trigger-text">Want to pick a specific seat? <a href="#"
+                                            id="openSeatMap">Click here!</a></small>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="special_assistance">Special Assistance (e.g., Wheelchair, Hearing
+                                        Impaired)</label>
+                                    <input type="text" id="special_assistance" name="special_assistance"
+                                        placeholder="Specify any special needs">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-header" data-target="payment-details-content">
+                            <span>3. Payment Details</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="form-content" id="payment-details-content">
+                            <div class="form-section">
+                                <div class="form-group full-width">
+                                    <label for="card_number">Card Number</label>
+                                    <input type="text" id="card_number" name="card_number" placeholder="XXXX XXXX XXXX XXXX"
+                                        required>
+                                    <small class="accepted-cards-text">We accept:
+                                        <img src="Images/visa.png" alt="Visa" class="card-logo">
+                                        <img src="Images/mastercard.png" alt="Mastercard" class="card-logo">
+                                    </small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="expiry_date">Expiry Date (MM/YY)</label>
+                                    <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="XXX" required>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="card_holder_name">Card Holder Name</label>
+                                    <input type="text" id="card_holder_name" name="card_holder_name"
+                                        placeholder="Full Name on Card" required>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="billing_address">Billing Address</label>
+                                    <input type="text" id="billing_address" name="billing_address" placeholder="Street Address"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing_city">City</label>
+                                    <input type="text" id="billing_city" name="billing_city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing_zip">Zip Code</label>
+                                    <input type="text" id="billing_zip" name="billing_zip" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit">Book Flight</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2025 TRIPNEST. All rights reserved.
+    </footer>
+
+    <div id="seatMapModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Select Your Seat</h3>
+            <div class="seating-map-container">
+                <div class="aisle-indicator">Front</div>
+                <div class="aircraft-body">
+                    <div class="exit-row-divider">Emergency Exit</div>
+                    <div class="seating-section" id="premium-economy">
+                        <div class="section-label">Premium Economy</div>
+                        <div class="seat-row" data-row="1">
+                            <div class="seat-label">1</div>
+                            <div class="seat available" data-seat="1A">A</div>
+                            <div class="seat available" data-seat="1B">B</div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat available" data-seat="1C">C</div>
+                            <div class="seat available" data-seat="1D">D</div>
+                        </div>
+                        <div class="seat-row" data-row="2">
+                            <div class="seat-label">2</div>
+                            <div class="seat available" data-seat="2A">A</div>
+                            <div class="seat available" data-seat="2B">B</div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat available" data-seat="2C">C</div>
+                            <div class="seat booked" data-seat="2D">D</div>
+                        </div>
+                    </div>
+                    <div class="exit-row-divider">Emergency Exit</div>
+                    <div class="seating-section" id="economy">
+                        <div class="section-label">Economy</div>
+                        <div class="seat-row" data-row="3">
+                            <div class="seat-label">3</div>
+                            <div class="seat available" data-seat="3A">A</div>
+                            <div class="seat available" data-seat="3B">B</div>
+                            <div class="seat available" data-seat="3C">C</div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat available" data-seat="3D">D</div>
+                            <div class="seat available" data-seat="3E">E</div>
+                            <div class="seat available" data-seat="3F">F</div>
+                        </div>
+                        <div class="seat-row" data-row="4">
+                            <div class="seat-label">4</div>
+                            <div class="seat booked" data-seat="4A">A</div>
+                            <div class="seat available" data-seat="4B">B</div>
+                            <div class="seat available" data-seat="4C">C</div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat available" data-seat="4D">D</div>
+                            <div class="seat available" data-seat="4E">E</div>
+                            <div class="seat booked" data-seat="4F">F</div>
+                        </div>
+                        <div class="seat-row" data-row="5">
+                            <div class="seat-label">5</div>
+                            <div class="seat available" data-seat="5A">A</div>
+                            <div class="seat available" data-seat="5B">B</div>
+                            <div class="seat available" data-seat="5C">C</div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat available" data-seat="5D">D</div>
+                            <div class="seat available" data-seat="5E">E</div>
+                            <div class="seat available" data-seat="5F">F</div>
+                        </div>
+                    </div>
+                    <div class="aisle-indicator">Back</div>
+                </div>
+            </div>
+            <div class="seat-legend">
+                <div class="legend-item"><span class="legend-box available"></span> Available</div>
+                <div class="legend-item"><span class="legend-box selected"></span> Selected</div>
+                <div class="legend-item"><span class="legend-box booked"></span> Booked</div>
+            </div>
+            <button id="confirmSeatSelection" class="book-flight-button">Confirm Seat</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Highlight active sidebar link
+            const currentPath = window.location.pathname.split('/').pop(); // Gets 'flight_booking.html'
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+
+            sidebarLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Toggle return date visibility
+            const tripTypeRadios = document.querySelectorAll('input[name="trip_type"]');
+            const returnDateGroup = document.getElementById('return_date_group');
+            const returnDateInput = document.getElementById('return_date');
+
+            function toggleReturnDate() {
+                if (document.querySelector('input[name="trip_type"]:checked').value === 'round_trip') {
+                    returnDateGroup.style.display = 'flex';
+                    returnDateInput.setAttribute('required', 'required');
+                } else {
+                    returnDateGroup.style.display = 'none';
+                    returnDateInput.removeAttribute('required');
+                }
+            }
+
+            tripTypeRadios.forEach(radio => {
+                radio.addEventListener('change', toggleReturnDate);
+            });
+
+            // Initial call to set correct state on page load
+            toggleReturnDate();
+
+
+            // Accordion/Collapsible Section Logic
+            const sectionHeaders = document.querySelectorAll('.section-header');
+
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function () {
+                    const targetId = this.dataset.target;
+                    const content = document.getElementById(targetId);
+
+                    // Close all other active sections
+                    sectionHeaders.forEach(otherHeader => {
+                        const otherContent = document.getElementById(otherHeader.dataset.target);
+                        if (otherHeader !== this && otherHeader.classList.contains('active')) {
+                            otherHeader.classList.remove('active');
+                            otherContent.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle 'active' class on current header and content
+                    this.classList.toggle('active');
+                    content.classList.toggle('active');
+                });
+            });
+
+            // Opening the first section by default
+            if (sectionHeaders.length > 0) {
+                sectionHeaders[0].click();
+            }
+
+            // Seat Map Modal Logic
+            const seatMapModal = document.getElementById('seatMapModal');
+            const openSeatMapLink = document.getElementById('openSeatMap');
+            const closeSeatMapButton = seatMapModal.querySelector('.close-button');
+            const seatMapContainer = seatMapModal.querySelector('.seating-map-container');
+            const seatPreferenceDropdown = document.getElementById('seat_preference');
+            const confirmSeatSelectionButton = document.getElementById('confirmSeatSelection');
+
+            let selectedSeat = null; // To store the currently selected seat element
+
+            // Function to reset all selected seats
+            function resetSeatSelection() {
+                if (selectedSeat) {
+                    selectedSeat.classList.remove('selected');
+                    selectedSeat = null;
+                }
+            }
+
+            // Event listener for opening the modal
+            openSeatMapLink.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent default link behavior
+                seatMapModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling body
+            });
+
+            // Event listener for closing the modal
+            closeSeatMapButton.addEventListener('click', function () {
+                seatMapModal.style.display = 'none';
+                document.body.style.overflow = ''; // Restore body scrolling
+                resetSeatSelection(); // Clear selection when closing
+            });
+
+            // Close modal if clicking outside content
+            window.addEventListener('click', function (event) {
+                if (event.target === seatMapModal) {
+                    seatMapModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                    resetSeatSelection();
+                }
+            });
+
+            // Seat selection logic
+            seatMapContainer.addEventListener('click', function (e) {
+                const clickedSeat = e.target.closest('.seat'); // Ensure a seat element was clicked
+
+                if (clickedSeat && !clickedSeat.classList.contains('booked')) {
+                    resetSeatSelection(); // Deselect any previously selected seat
+                    clickedSeat.classList.add('selected'); // Mark the new seat as selected
+                    selectedSeat = clickedSeat; // Store the reference to the selected seat
+                }
+            });
+
+            // Confirm seat selection
+            confirmSeatSelectionButton.addEventListener('click', function () {
+                if (selectedSeat) {
+                    const seatNumber = selectedSeat.dataset.seat;
+                    // Update the dropdown value and text
+                    let optionExists = false;
+                    for (let i = 0; i < seatPreferenceDropdown.options.length; i++) {
+                        if (seatPreferenceDropdown.options[i].value === seatNumber) {
+                            seatPreferenceDropdown.selectedIndex = i;
+                            optionExists = true;
+                            break;
+                        }
+                    }
+                    if (!optionExists) {
+                        // If the seat number is not an existing option (e.g., 'Any', 'Window'), add it
+                        const newOption = document.createElement('option');
+                        newOption.value = seatNumber;
+                        newOption.textContent = seatNumber;
+                        seatPreferenceDropdown.appendChild(newOption);
+                        seatPreferenceDropdown.value = seatNumber; // Select the new option
+                    }
+                    seatMapModal.style.display = 'none'; // Close modal
+                    document.body.style.overflow = ''; // Restore scrolling
+                    resetSeatSelection(); // Clear selection
+                } else {
+                    alert('Please select a seat first!');
+                }
+            });
+
+            // Sidebar Elements for Flight Booking Page
+            const bookingSidebar = document.getElementById('bookingSidebar');
+            const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+            const hamburgerMenuToggle = document.getElementById('hamburgerMenuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            // const sidebarLinks = document.querySelectorAll('.sidebar-menu a'); // Already defined above for active class
+            const sidebarHoverRegion = 50;
+
+            // Function to open sidebar for mobile
+            function openSidebar() {
+                bookingSidebar.classList.add('open');
+                sidebarOverlay.classList.add('visible');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Function to close sidebar for mobile
+            function closeSidebar() {
+                bookingSidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+
+            // Mobile Hamburger Menu Toggle
+            if (hamburgerMenuToggle) {
+                hamburgerMenuToggle.addEventListener('click', openSidebar);
+            }
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', closeSidebar);
+            }
+
+            // Desktop sidebar toggle functionality
+            if (sidebarToggleBtn) {
+                sidebarToggleBtn.addEventListener('click', function() {
+                    bookingSidebar.classList.toggle('collapsed');
+                    sidebarToggleBtn.querySelector('i').classList.toggle('fa-chevron-left');
+                    sidebarToggleBtn.querySelector('i').classList.toggle('fa-chevron-right');
+                });
+            }
+
+            // Sidebar auto-expand/collapse on mouse proximity (Left region hover)
+            // Only enable on desktop
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', function(e) {
+                    if (!bookingSidebar.classList.contains('open') && e.clientX < sidebarHoverRegion && bookingSidebar.classList.contains('collapsed')) {
+                        bookingSidebar.classList.remove('collapsed');
+                        sidebarToggleBtn.querySelector('i').classList.remove('fa-chevron-left');
+                        sidebarToggleBtn.querySelector('i').classList.add('fa-chevron-right');
+                    } else if (!bookingSidebar.classList.contains('open') && e.clientX > bookingSidebar.offsetWidth + 20 && !bookingSidebar.classList.contains('collapsed') && e.target.closest('#bookingSidebar') === null) {
+                        bookingSidebar.classList.add('collapsed');
+                        sidebarToggleBtn.querySelector('i').classList.add('fa-chevron-left');
+                        sidebarToggleBtn.querySelector('i').classList.remove('fa-chevron-right');
+                    }
+                });
+            }
+
+            // Close sidebar after selection on mobile
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768 && bookingSidebar.classList.contains('open')) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+            // Logout Link functionality
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Simulate logout by removing the login state
+                    localStorage.removeItem('isLoggedIn');
+
+                    updateLogoutButtonVisibility();
+                    alert('You have been logged out!');
+                });
+            }
+
+            // Function to update logout button visibility
+            function updateLogoutButtonVisibility() {
+                const logoutMenuItem = document.getElementById('logoutMenuItem');
+                const loginMenuItem = document.getElementById('loginMenuItem');
+                const signupMenuItem = document.getElementById('signupMenuItem');
+                const isLoggedIn = localStorage.getItem('isLoggedIn'); // Check localStorage for the flag
+
+                if (logoutMenuItem) {
+                    if (isLoggedIn === 'true') { // If the user IS logged in
+                        logoutMenuItem.style.display = 'list-item'; // SHOW the logout button
+                        loginMenuItem.style.display = 'none'; // HIDE the login button
+                        signupMenuItem.style.display = 'none'; // HIDE the signup button
+
+                    } else { // If the user IS NOT logged in
+                        logoutMenuItem.style.display = 'none'; // HIDE the logout button
+                        loginMenuItem.style.display = 'list-item'; // SHOW the login button
+                        signupMenuItem.style.display = 'list-item'; // SHOW the signup button
+                    }
+                } else {
+                }
+            }
+
+            // Call the function to set initial visibility on page load
+            updateLogoutButtonVisibility();
+
+            // Close sidebar if window is resized above mobile breakpoint while open
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

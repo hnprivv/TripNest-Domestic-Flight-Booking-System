@@ -1,0 +1,320 @@
+:root {
+    --primary-blue: #291f13;
+    /* Dark blue, inspired by proposal header */
+    --secondary-blue: #6a5742;
+    /* Slightly lighter dark blue */
+    --accent-color: #332618;
+    /* Bright blue for accents */
+    --text-color: #333;
+    --light-gray: #f4f4f4;
+    --border-color: #ddd;
+    --padding-base: 20px;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: var(--padding-base) 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+header h1 img {
+    height: 1.5em;
+    margin-right: 10px;
+}
+
+/* --- Notification Popup Styles (Copied from settings.css) --- */
+.notification-popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d4edda; /* Default success color */
+    color: #155724; /* Default success text color */
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    min-width: 280px;
+    box-sizing: border-box;
+    border: 1px solid #c3e6cb; /* Default success border */
+}
+
+.notification-popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.notification-content i {
+    color: #28a745; /* Default success icon color */
+    font-size: 1.4em;
+}
+
+.notification-progress-bar {
+    width: 0%;
+    height: 5px;
+    background-color: #28a745; /* Default success progress bar color */
+    border-radius: 2px;
+    margin-top: 5px;
+    align-self: flex-start;
+}
+/* End Notification Popup Styles */
+
+
+.container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--padding-base);
+    background-color: #f4f4f4;
+}
+
+.form-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+}
+
+.form-card h2 {
+    color: var(--secondary-blue);
+    margin-bottom: var(--padding-base);
+    font-size: 2em;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-group {
+    margin-bottom: 2px; /* Keep this for standard form groups */
+    text-align: left;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--secondary-blue);
+    font-size: 0.9em;
+}
+
+input[type="email"],
+input[type="password"] {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+input.input-error {
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.5) !important;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.75em;
+    margin-top: 3px;
+    display: block;
+    text-align: left;
+    height: 1.2em;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease;
+}
+
+.error-message:not(:empty) {
+    visibility: visible;
+    opacity: 1;
+}
+
+.general-error-message {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #e74c3c;
+    border-radius: 5px;
+    background-color: #fde8e8;
+    display: none;
+    text-align: center;
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    margin-top: 3px;
+    font-size: 0.8em;
+}
+
+.forgot-password a {
+    color: var(--secondary-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.remember-me-group {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    gap: 8px;
+    text-align: left;
+}
+
+.remember-me-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+}
+
+.remember-me-group .checkbox-label {
+    margin-bottom: 0;
+    font-weight: 400;
+    color: var(--text-color);
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+
+button[type="submit"] {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #423629;
+}
+
+.loading-spinner {
+    display: none;
+    font-size: 1.2em;
+}
+
+button[type="submit"]:disabled {
+    background-color: #b0b0b0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+.form-card p {
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+.form-card p a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-card p a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    padding: var(--padding-base);
+    color: #777;
+    font-size: 0.9em;
+    margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .notification-popup {
+        width: calc(100% - 40px);
+        left: 20px;
+        transform: translateX(0);
+    }
+    .form-card {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+}

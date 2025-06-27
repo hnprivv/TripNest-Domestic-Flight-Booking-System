@@ -1,0 +1,529 @@
+:root {
+    --primary-blue: #291f13;
+    /* Dark blue, inspired by proposal header */
+    --secondary-blue: #6a5742;
+    /* Slightly lighter dark blue */
+    --accent-color: #332618;
+    /* Bright blue for accents */
+    --text-color: #333;
+    --light-gray: #f4f4f4;
+    --border-color: #ddd;
+    --padding-base: 20px;
+
+    /* Sidebar Specific Variables */
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 60px;
+    --sidebar-bg: #423629; /* Darker tone for sidebar */
+    --sidebar-link-hover: #6a5742; /* Lighter secondary blue (this is the desired active background) */
+    --sidebar-text-color: white;
+    --active-border-color: #e67e22; /* Define a consistent color for the active border */
+    --active-icon-color: #e67e22; /* Define a consistent color for the active icon */
+    --sidebar-divider-color: rgba(255, 255, 255, 0.15); /* Thin gray line for dividers */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-y: scroll;
+}
+
+header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: var(--padding-base) 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center; /* Center the logo/text initially */
+    align-items: center;
+    padding-left: var(--padding-base);
+    padding-right: var(--padding-base);
+    position: relative;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* Allow h1 to take space */
+    justify-content: center;
+}
+
+header h1 img {
+    height: 1.5em;
+    margin-right: 10px;
+}
+
+
+/* --- Hamburger Menu Toggle (for mobile) --- */
+.hamburger-menu-toggle {
+    display: none; /* Hidden by default (desktop view) */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8em;
+    cursor: pointer;
+    position: absolute;
+    left: var(--padding-base); /* Position to the left of the header */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 5px;
+}
+
+/* --- Dashboard-like Wrapper for Sidebar and Main Content --- */
+.dashboard-wrapper {
+    display: flex;
+    flex-grow: 1;
+    background-color: white;
+    position: relative;
+}
+
+/* --- Sidebar Overlay (for mobile) --- */
+.sidebar-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 90;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.sidebar-overlay.visible {
+    display: block;
+    opacity: 1;
+}
+
+/* --- Sidebar Styles --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text-color);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+    transition: width 0.3s ease, transform 0.3s ease;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.sidebar-toggle-btn {
+    position: absolute;
+    top: 20px;
+    right: -15px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 60;
+}
+
+.sidebar-toggle-btn:hover {
+    background-color: var(--primary-blue);
+    transform: scale(1.1);
+}
+
+.sidebar.collapsed .sidebar-header h2 {
+    opacity: 0;
+    width: 0;
+    padding: 0;
+    border-bottom: none;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px; /* Consistent padding */
+    color: var(--sidebar-text-color);
+    text-decoration: none;
+    font-size: 1.05em;
+    transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Standard Hover State (for non-active links): Background changes to lighter brown, text remains white */
+.sidebar-menu li a:hover {
+    background-color: var(--sidebar-link-hover);
+    color: white;
+}
+
+/* Styles for the ACTIVE sidebar link (matches image_9dfc62.png) */
+.sidebar-menu a.active {
+    background-color: var(--sidebar-link-hover); /* Lighter background */
+    color: white; /* White text */
+    font-weight: 600;
+    border-left: 4px solid var(--active-border-color); /* Orange border */
+    padding-left: 16px; /* Adjust padding to accommodate the border */
+}
+
+/* Icon color for the ACTIVE link */
+.sidebar-menu a.active i {
+    color: var(--active-icon-color); /* Orange icon */
+}
+
+/* Ensure that HOVERING over an ACTIVE link keeps its appearance IDENTICAL to the active state. */
+.sidebar-menu a.active:hover {
+    background-color: var(--sidebar-link-hover); /* Maintain lighter background on hover */
+    color: white; /* Maintain white text on hover */
+    border-left: 4px solid var(--active-border-color); /* Ensure border remains */
+    padding-left: 16px; /* Ensure padding remains */
+}
+
+/* Ensure the icon within an ACTIVE and HOVERED link remains orange */
+.sidebar-menu a.active:hover i {
+    color: var(--active-icon-color); /* Maintain orange icon on hover */
+}
+
+
+.sidebar-menu li a i {
+    font-size: 1.4em;
+    margin-right: 15px;
+    width: 25px;
+    text-align: center;
+    transition: margin-right 0.3s ease, color 0.3s ease;
+}
+
+.sidebar.collapsed .sidebar-menu li a i {
+    margin-right: 0;
+}
+
+.sidebar.collapsed .sidebar-menu li a span {
+    display: none;
+}
+
+/* NEW: Sidebar Divider */
+.sidebar-divider {
+    height: 1px;
+    background-color: var(--sidebar-divider-color); /* */
+    margin: 10px 20px;
+    transition: opacity 0.3s ease;
+}
+
+/* Styles for the collapsed state of the sidebar divider (from search_results.css) */
+.sidebar.collapsed .sidebar-divider {
+    height: 1px;
+    width: 30%; /* Make it shorter */
+    margin: 15px auto; /* Center it horizontally and give more vertical spacing */
+    opacity: 1; /* Ensure it's not hidden by opacity transition */
+    background-color: rgba(255, 255, 255, 0.4); /* Slightly lighter for visibility on dark background */
+}
+
+/* Main Content Area */
+.main-content-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Remaining existing home.css styles --- */
+.hero-section {
+    background: url('Images/home_bg2.png') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.hero-content h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.hero-buttons .button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-weight: 700;
+    margin: 10px;
+    display: inline-block;
+}
+
+.hero-buttons .button:hover {
+    background-color: #423629;
+}
+
+.feature-section {
+    background-color: var(--light-gray);
+    padding: calc(var(--padding-base) * 2);
+    text-align: center;
+}
+
+.feature-section h2 {
+    color: var(--secondary-blue);
+    font-size: 2.2em;
+    margin-bottom: calc(var(--padding-base) * 1.5);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--padding-base);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    background-color: white;
+    padding: var(--padding-base);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+}
+
+.feature-item i {
+    font-size: 3em;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.feature-item h3 {
+    color: var(--primary-blue);
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.feature-item p {
+    font-size: 0.95em;
+    color: #555;
+}
+
+footer {
+    text-align: center;
+    padding: var(--padding-base);
+    color: #777;
+    font-size: 0.9em;
+    margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Header for mobile */
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    header h1 {
+        justify-content: center;
+        margin-bottom: 0;
+        font-size: 2em;
+        flex-grow: 1;
+    }
+
+    header h1 img {
+        height: 40px;
+        margin-right: 5px;
+    }
+
+    /* Show hamburger on small screens */
+    .hamburger-menu-toggle {
+        display: block;
+        position: static;
+        transform: none;
+    }
+
+    /* --- Sidebar for mobile (Hamburger Menu) --- */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 280px;
+        padding: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+        flex-direction: column;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    /* Hide desktop toggle button on mobile */
+    .sidebar-toggle-btn {
+        display: none;
+    }
+
+    /* Revert sidebar header/menu styles for vertical stacking */
+    .sidebar-header {
+        padding: 20px;
+        margin-bottom: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h2 {
+        opacity: 1;
+        width: auto;
+    }
+
+    .sidebar-menu {
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+    }
+
+    .sidebar-menu li {
+        min-width: unset;
+        flex: unset;
+    }
+
+    .sidebar-menu li a {
+        flex-direction: row;
+        padding: 15px 20px;
+    }
+
+    .sidebar-menu li a i {
+        margin-right: 15px;
+    }
+
+    .sidebar-menu li a span {
+        display: inline;
+        font-size: 1.05em;
+    }
+
+    /* Sidebar Divider Responsive (for mobile open state) */
+    .sidebar-divider {
+        opacity: 1;
+        height: 1px;
+        margin: 10px 20px;
+        background-color: var(--sidebar-divider-color); /* Ensure it uses the var for consistency */
+    }
+
+    .sidebar.collapsed .sidebar-divider { /* Override collapsed for mobile, if sidebar is also 'open' */
+        opacity: 1;
+        height: 1px;
+        margin: 10px 20px;
+        background-color: var(--sidebar-divider-color); /* Ensure it uses the var for consistency */
+    }
+
+    /* Home page specific content adjustments */
+    .hero-section {
+        padding: 80px 20px;
+    }
+
+    .hero-content h2 {
+        font-size: 2.2em;
+    }
+
+    .hero-content p {
+        font-size: 1em;
+    }
+
+    .hero-buttons .button {
+        display: block;
+        margin: 10px auto;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    header h1 img {
+        height: 35px;
+        margin-right: 5px;
+    }
+
+    .hero-content h2 {
+        font-size: 1.8em;
+    }
+
+    .hero-buttons .button {
+        display: block;
+        margin: 10px auto;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,373 @@
+:root {
+    --primary-blue: #291f13;
+    /* Dark blue, inspired by proposal header */
+    --secondary-blue: #6a5742;
+    /* Slightly lighter dark blue */
+    --accent-color: #332618;
+    /* Bright blue for accents */
+    --text-color: #333;
+    --light-gray: #f4f4f4;
+    --border-color: #ddd;
+    --padding-base: 20px;
+
+    /* Sidebar Specific Variables - These are ideally imported via home.css,
+       but kept here for quick reference if home.css is not fully loaded.
+       In a real scenario, these would be in a shared 'variables.css' or directly in home.css. */
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 60px;
+    --sidebar-bg: #423629;
+    /* Darker tone for sidebar */
+    --sidebar-link-hover: #6a5742;
+    /* Lighter secondary blue */
+    --sidebar-text-color: white;
+    --active-border-color: #e67e22; /* Add this if not in home.css or if you want to override */
+    --active-icon-color: #e67e22; /* Add this if not in home.css or if you want to override */
+    --sidebar-divider-color: rgba(255, 255, 255, 0.15); /* Add this if not in home.css or if you want to override */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: var(--padding-base) 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    /* Center the logo/text initially */
+    align-items: center;
+    padding-left: var(--padding-base);
+    padding-right: var(--padding-base);
+    position: relative;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    /* Allow h1 to take space */
+    justify-content: center;
+}
+
+/* Removed header h1 a style as the link is gone */
+/* header h1 a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+} */
+
+
+header h1 img {
+    height: 1.5em;
+    margin-right: 10px;
+}
+
+/* Main content area */
+.main-content-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding-base);
+    background-color: var(--light-gray);
+}
+
+.content-card {
+    background-color: white;
+    padding: calc(var(--padding-base) * 1.5);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 900px;
+    /* Wider for contact content */
+    text-align: center;
+    align-self: center; /* Center the card horizontally within the main content area */
+}
+
+.content-card h2 {
+    color: var(--secondary-blue);
+    margin-bottom: var(--padding-base);
+    font-size: 2em;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Contact Page Specific Styles */
+.intro-text {
+    font-size: 1.05em;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    max-width: 700px;
+    /* Limit width for readability */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    /* Center the intro text */
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Default to single column */
+    gap: 40px;
+    margin-top: 30px;
+    text-align: left;
+    /* Align text within grid columns */
+}
+
+@media (min-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr 1fr;
+        /* Two columns on larger screens */
+    }
+}
+
+.contact-info, .contact-form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.contact-info h3, .contact-form h3 {
+    color: var(--primary-blue);
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* Contact Info Section */
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+    color: #444;
+}
+
+.info-item i {
+    color: var(--accent-color);
+    font-size: 1.3em;
+    margin-right: 15px;
+    width: 25px;
+    /* Fixed width for icon alignment */
+    text-align: center;
+}
+
+.info-item p {
+    margin: 0;
+    text-align: left;
+    /* Ensure text within item aligns left */
+}
+
+.info-item a {
+    color: var(--secondary-blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.info-item a:hover {
+    color: var(--accent-color);
+}
+
+.social-links {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    /* Center social icons within their column */
+}
+
+.social-links a {
+    color: var(--secondary-blue);
+    font-size: 2.2em;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+/* Contact Form Section */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--primary-blue);
+    font-size: 0.95em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    color: var(--text-color);
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(51, 38, 24, 0.2);
+    /* Light accent shadow */
+}
+
+.form-group textarea {
+    resize: vertical;
+    /* Allow vertical resizing only */
+    min-height: 100px;
+}
+
+.submit-button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 700;
+    width: 100%;
+    /* Make button full width */
+}
+
+.submit-button:hover {
+    background-color: var(--primary-blue);
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: var(--padding-base);
+    color: #777;
+    font-size: 0.9em;
+    margin-top: auto;
+    background-color: var(--light-gray);
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Header for mobile */
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    header h1 {
+        justify-content: center;
+        margin-bottom: 0;
+        font-size: 2em;
+        flex-grow: 1;
+    }
+
+    header h1 img {
+        height: 40px;
+        margin-right: 5px;
+    }
+
+    /* Show hamburger on small screens */
+    .hamburger-menu-toggle {
+        display: block;
+        position: static;
+        transform: none;
+    }
+
+    /* Old navigation styles (will be removed as sidebar takes over) */
+    /* .menu-toggle { ... } */
+    /* .nav-links { ... } */
+    /* .nav-links.active { ... } */
+    /* .nav-links li { ... } */
+    /* .nav-links li a { ... } */
+
+    .content-card {
+        padding: var(--padding-base);
+        margin-top: var(--padding-base) * 0.5;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        /* Stack columns on small screens */
+    }
+
+    .contact-info, .contact-form {
+        padding: 20px;
+    }
+
+    .social-links {
+        justify-content: flex-start;
+        /* Align social links to the left */
+    }
+}
+
+.contact-form .form-group input[type="text"],
+.contact-form .form-group input[type="email"],
+.contact-form .form-group textarea {
+    transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out; /* ADD THIS LINE or ensure it's there */
+}
+
+/* Styles for successful flash effect */
+.contact-form .form-group input.success-flash,
+.contact-form .form-group textarea.success-flash {
+    border-color: #28a745; /* Darker green border */
+    background-color: #d4edda; /* Light green background */
+}
+
+/* Styles for unsuccessful/error flash effect */
+.contact-form .form-group input.error-flash,
+.contact-form .form-group textarea.error-flash {
+    border-color: #dc3545; /* Darker red border */
+    background-color: #f8d7da; /* Light red background */
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    header h1 img {
+        height: 35px;
+        margin-right: 5px;
+    }
+}
