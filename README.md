@@ -56,9 +56,9 @@ Create a `.env` file inside `TripNest-Domestic-Flight-Booking-System-main/` with
 
 ```
 PORT=5000
-MONGO_URI=<your_mongo_connection_string>
-EMAIL_USER=<your_email>
-EMAIL_PASS=<your_password>
+MONGODB_URI=<your_mongo_connection_string>
+FROM_EMAIL=<your_email>
+FROM_PASSWORD=<your_password>
 ```
 
 ### 4. Run the Server
