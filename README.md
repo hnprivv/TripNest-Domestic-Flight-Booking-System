@@ -72,7 +72,7 @@ Visit: `http://localhost:5000`
 
 ## 📬 Contact Form
 
-Submissions from users are stored using `ContactSubmission.js` and optionally emailed to the admin through the configured service.
+Submissions from users are stored using `ContactSubmission.js` and confirmation is emailed to the user through the configured service.
 
 
 ## 📦 Models Summary
